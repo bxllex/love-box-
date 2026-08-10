@@ -1,364 +1,795 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>กล่องสุ่มคำหวาน 💌</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --pink:#FF8FB1; --pink-deep:#E85A8A; --peach:#FFC9A3; --gold:#FFD98E;
-    --cream:#FFF8F3; --ink:#6B4655; --ink-soft:#9C7788;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    font-family:"Mali",system-ui,sans-serif;color:var(--ink);
-    min-height:100vh;overflow-x:hidden;position:relative;
-    display:flex;align-items:center;justify-content:center;padding:24px 18px;
-    background:
-      radial-gradient(120% 90% at 15% 0%, #FFE3EF 0%, transparent 55%),
-      radial-gradient(120% 90% at 100% 100%, #EAD9FF 0%, transparent 55%),
-      linear-gradient(160deg,#FFF0F6 0%, #FBEAF6 60%, #F1E6FF 100%);
-  }
-  .bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-  .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;animation:float linear infinite}
-  @keyframes float{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.55}100%{transform:translateY(-108vh) rotate(40deg);opacity:0}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>กล่องสุ่มคำหวาน 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #FF8FB1;
+      --pink-deep: #E85A8A;
+      --peach: #FFC9A3;
+      --gold: #FFD98E;
+      --cream: #FFF8F3;
+      --ink: #6B4655;
+      --ink-soft: #9C7788;
+    }
 
-  .mute{position:fixed;top:14px;right:14px;z-index:9;width:40px;height:40px;border-radius:50%;
-    border:none;cursor:pointer;background:#fff;color:var(--pink-deep);font-size:1.1rem;
-    box-shadow:0 8px 18px -8px rgba(232,90,138,.6)}
-  .mute:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-  .stage{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
-  .title{font-family:"Itim",cursive;font-size:clamp(1.7rem,7vw,2.3rem);color:var(--pink-deep);
-    line-height:1.2;margin-bottom:4px;text-shadow:0 2px 0 #fff, 0 4px 14px rgba(232,90,138,.25)}
-  .subtitle{font-size:.95rem;color:var(--ink-soft);margin-bottom:16px}
+    html {
+      -webkit-text-size-adjust: 100%
+    }
 
-  .name-row{display:flex;gap:8px;justify-content:center;align-items:center;margin-bottom:18px}
-  .name-row input{font-family:"Mali",sans-serif;font-size:.95rem;line-height:1.7;color:var(--ink);
-    border:2px solid #FFDCE8;background:#fff;border-radius:99px;padding:11px 18px 12px;width:min(280px,80%);
-    text-align:center;outline:none;transition:border-color .15s ease}
-  .name-row input:focus{border-color:var(--pink)}
-  .name-row input::placeholder{color:#C9A9B7}
+    body {
+      font-family: "Mali", system-ui, sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 18px;
+      background:
+        radial-gradient(120% 90% at 15% 0%, #FFE3EF 0%, transparent 55%),
+        radial-gradient(120% 90% at 100% 100%, #EAD9FF 0%, transparent 55%),
+        linear-gradient(160deg, #FFF0F6 0%, #FBEAF6 60%, #F1E6FF 100%);
+    }
 
-  .box-wrap{position:relative;height:210px;display:flex;align-items:center;justify-content:center}
-  .gift{cursor:pointer;filter:drop-shadow(0 18px 26px rgba(232,90,138,.35));
-    animation:wiggle 2.2s ease-in-out infinite;transition:transform .25s ease}
-  .gift:hover{transform:scale(1.05)}
-  .gift:active{transform:scale(.94)}
-  .gift.pop{animation:pop .5s cubic-bezier(.3,1.4,.5,1) forwards}
-  @keyframes wiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
-  @keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.18) rotate(-4deg)}100%{transform:scale(0) rotate(12deg);opacity:0}}
-  .tap-hint{position:absolute;bottom:-4px;left:0;right:0;font-family:"Itim",cursive;
-    font-size:1.05rem;color:var(--pink-deep);animation:blink 1.6s ease-in-out infinite}
-  @keyframes blink{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+    .bg-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0
+    }
 
-  .panel{display:none}
-  .panel.show{display:block;animation:cardIn .5s cubic-bezier(.3,1.35,.5,1) both}
+    .bg-hearts span {
+      position: absolute;
+      bottom: -40px;
+      font-size: 22px;
+      opacity: .5;
+      animation: float linear infinite
+    }
 
-  .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
-  .chip{font-family:"Mali",sans-serif;font-weight:500;font-size:.9rem;cursor:pointer;
-    border:2px solid #FFDCE8;background:#fff;color:var(--pink-deep);border-radius:99px;padding:8px 14px;
-    transition:transform .12s ease, background .15s ease, color .15s ease}
-  .chip:hover{transform:translateY(-2px)}
-  .chip:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
-  .chip.active{background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;border-color:transparent}
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0
+      }
 
-  .card{position:relative;background:var(--cream);border-radius:28px;padding:32px 26px 26px;
-    box-shadow:0 22px 50px -22px rgba(232,90,138,.5);border:2px solid #FFE1EC}
-  .card.secret{border-color:var(--gold);box-shadow:0 22px 55px -20px rgba(255,184,77,.7)}
-  @keyframes cardIn{from{opacity:0;transform:scale(.8) translateY(14px)}to{opacity:1;transform:none}}
-  .ribbon-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);
-    background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;font-family:"Itim",cursive;
-    font-size:.95rem;padding:5px 18px;border-radius:99px;box-shadow:0 8px 16px -6px rgba(232,90,138,.7);white-space:nowrap}
-  .card.secret .ribbon-tag{background:linear-gradient(135deg,#FFC94D,#FF9E2C)}
-  .msg{font-size:1.2rem;line-height:1.6;margin:14px 0 4px;min-height:3.2em;display:flex;align-items:center;justify-content:center}
-  .card.swap .msg{animation:swap .4s ease}
-  @keyframes swap{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:none}}
+      10% {
+        opacity: .55
+      }
 
-  .actions{display:flex;gap:12px;margin-top:20px}
-  .btn{flex:1;font-family:"Mali",sans-serif;font-weight:600;font-size:1rem;border:none;cursor:pointer;
-    border-radius:16px;padding:14px 12px;transition:transform .14s ease}
-  .btn:hover{transform:translateY(-2px)}
-  .btn:active{transform:translateY(0)}
-  .btn:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
-  .btn.primary{color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-deep));box-shadow:0 12px 24px -12px rgba(232,90,138,.9)}
-  .btn.soft{color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8}
+      100% {
+        transform: translateY(-108vh) rotate(40deg);
+        opacity: 0
+      }
+    }
 
-  .mini-heart{margin:16px auto 2px;display:block;background:none;border:none;cursor:pointer;
-    font-size:1.4rem;animation:beat 1.4s ease-in-out infinite;line-height:1}
-  .mini-heart:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:50%}
-  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
-  .hint-tiny{font-size:.72rem;color:#C9A9B7;margin-top:2px}
+    .mute {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 9;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: #fff;
+      color: var(--pink-deep);
+      font-size: 1.1rem;
+      box-shadow: 0 8px 18px -8px rgba(232, 90, 138, .6)
+    }
 
-  .burst{position:fixed;pointer-events:none;z-index:5}
-  .burst span{position:absolute;font-size:24px;animation:burst .9s ease-out forwards}
-  @keyframes burst{0%{transform:translate(0,0) scale(.4);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(1.1) rotate(var(--r));opacity:0}}
-  .rise{position:fixed;pointer-events:none;z-index:6;font-size:20px;animation:rise .8s ease-out forwards}
-  @keyframes rise{0%{transform:translateY(0) scale(.7);opacity:1}100%{transform:translateY(-70px) scale(1.1);opacity:0}}
+    .mute:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 2px
+    }
 
-  @media (prefers-reduced-motion:reduce){.gift,.tap-hint,.bg-hearts span,.mini-heart{animation:none!important}}
-  @media (max-width:420px){.card{padding:28px 20px 22px}.msg{font-size:1.1rem}}
-</style>
+    .stage {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      text-align: center
+    }
+
+    .title {
+      font-family: "Itim", cursive;
+      font-size: clamp(1.7rem, 7vw, 2.3rem);
+      color: var(--pink-deep);
+      line-height: 1.2;
+      margin-bottom: 4px;
+      text-shadow: 0 2px 0 #fff, 0 4px 14px rgba(232, 90, 138, .25)
+    }
+
+    .subtitle {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      margin-bottom: 16px
+    }
+
+    .name-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px
+    }
+
+    .name-row input {
+      font-family: "Mali", sans-serif;
+      font-size: .95rem;
+      line-height: 1.7;
+      color: var(--ink);
+      border: 2px solid #FFDCE8;
+      background: #fff;
+      border-radius: 99px;
+      padding: 11px 18px 12px;
+      width: min(280px, 80%);
+      text-align: center;
+      outline: none;
+      transition: border-color .15s ease
+    }
+
+    .name-row input:focus {
+      border-color: var(--pink)
+    }
+
+    .name-row input::placeholder {
+      color: #C9A9B7
+    }
+
+    .box-wrap {
+      position: relative;
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gift {
+      cursor: pointer;
+      filter: drop-shadow(0 18px 26px rgba(232, 90, 138, .35));
+      animation: wiggle 2.2s ease-in-out infinite;
+      transition: transform .25s ease
+    }
+
+    .gift:hover {
+      transform: scale(1.05)
+    }
+
+    .gift:active {
+      transform: scale(.94)
+    }
+
+    .gift.pop {
+      animation: pop .5s cubic-bezier(.3, 1.4, .5, 1) forwards
+    }
+
+    @keyframes wiggle {
+
+      0%,
+      100% {
+        transform: rotate(-3deg)
+      }
+
+      50% {
+        transform: rotate(3deg)
+      }
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1)
+      }
+
+      35% {
+        transform: scale(1.18) rotate(-4deg)
+      }
+
+      100% {
+        transform: scale(0) rotate(12deg);
+        opacity: 0
+      }
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      font-family: "Itim", cursive;
+      font-size: 1.05rem;
+      color: var(--pink-deep);
+      animation: blink 1.6s ease-in-out infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: .55;
+        transform: translateY(0)
+      }
+
+      50% {
+        opacity: 1;
+        transform: translateY(-3px)
+      }
+    }
+
+    .panel {
+      display: none
+    }
+
+    .panel.show {
+      display: block;
+      animation: cardIn .5s cubic-bezier(.3, 1.35, .5, 1) both
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px
+    }
+
+    .chip {
+      font-family: "Mali", sans-serif;
+      font-weight: 500;
+      font-size: .9rem;
+      cursor: pointer;
+      border: 2px solid #FFDCE8;
+      background: #fff;
+      color: var(--pink-deep);
+      border-radius: 99px;
+      padding: 8px 14px;
+      transition: transform .12s ease, background .15s ease, color .15s ease
+    }
+
+    .chip:hover {
+      transform: translateY(-2px)
+    }
+
+    .chip:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 2px
+    }
+
+    .chip.active {
+      background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+      color: #fff;
+      border-color: transparent
+    }
+
+    .card {
+      position: relative;
+      background: var(--cream);
+      border-radius: 28px;
+      padding: 32px 26px 26px;
+      box-shadow: 0 22px 50px -22px rgba(232, 90, 138, .5);
+      border: 2px solid #FFE1EC
+    }
+
+    .card.secret {
+      border-color: var(--gold);
+      box-shadow: 0 22px 55px -20px rgba(255, 184, 77, .7)
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: scale(.8) translateY(14px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .ribbon-tag {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+      color: #fff;
+      font-family: "Itim", cursive;
+      font-size: .95rem;
+      padding: 5px 18px;
+      border-radius: 99px;
+      box-shadow: 0 8px 16px -6px rgba(232, 90, 138, .7);
+      white-space: nowrap
+    }
+
+    .card.secret .ribbon-tag {
+      background: linear-gradient(135deg, #FFC94D, #FF9E2C)
+    }
+
+    .msg {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin: 14px 0 4px;
+      min-height: 3.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .card.swap .msg {
+      animation: swap .4s ease
+    }
+
+    @keyframes swap {
+      0% {
+        opacity: 0;
+        transform: scale(.92)
+      }
+
+      100% {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px
+    }
+
+    .btn {
+      flex: 1;
+      font-family: "Mali", sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 16px;
+      padding: 14px 12px;
+      transition: transform .14s ease
+    }
+
+    .btn:hover {
+      transform: translateY(-2px)
+    }
+
+    .btn:active {
+      transform: translateY(0)
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 3px
+    }
+
+    .btn.primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+      box-shadow: 0 12px 24px -12px rgba(232, 90, 138, .9)
+    }
+
+    .btn.soft {
+      color: var(--pink-deep);
+      background: #fff;
+      border: 2px solid #FFDCE8
+    }
+
+    .mini-heart {
+      margin: 16px auto 2px;
+      display: block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      animation: beat 1.4s ease-in-out infinite;
+      line-height: 1
+    }
+
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    .mini-heart:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 3px;
+      border-radius: 50%
+    }
+
+    @keyframes beat {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.18)
+      }
+    }
+
+    .hint-tiny {
+      font-size: .72rem;
+      color: #C9A9B7;
+      margin-top: 2px
+    }
+
+    .burst {
+      position: fixed;
+      pointer-events: none;
+      z-index: 5
+    }
+
+    .burst span {
+      position: absolute;
+      font-size: 24px;
+      animation: burst .9s ease-out forwards
+    }
+
+    @keyframes burst {
+      0% {
+        transform: translate(0, 0) scale(.4);
+        opacity: 1
+      }
+
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(var(--r));
+        opacity: 0
+      }
+    }
+
+    .rise {
+      position: fixed;
+      pointer-events: none;
+      z-index: 6;
+      font-size: 20px;
+      animation: rise .8s ease-out forwards
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(.7);
+        opacity: 1
+      }
+
+      100% {
+        transform: translateY(-70px) scale(1.1);
+        opacity: 0
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .gift,
+      .tap-hint,
+      .bg-hearts span,
+      .mini-heart {
+        animation: none !important
+      }
+    }
+
+    @media (max-width:420px) {
+      .card {
+        padding: 28px 20px 22px
+      }
+
+      .msg {
+        font-size: 1.1rem
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="bg-hearts" id="bgHearts"></div>
-<button class="mute" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
+  <div class="bg-hearts" id="bgHearts"></div>
+  <button class="mute" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
 
-<div class="stage">
-  <div class="title" id="title">กล่องสุ่มคำหวาน 💌</div>
-  <div class="subtitle" id="subtitle">แตะกล่องเพื่อเปิดความหวานของวันนี้~</div>
+  <div class="stage">
+    <div class="title" id="title">กล่องสุ่มคำหวาน 💌</div>
+    <div class="subtitle" id="subtitle">แตะกล่องเพื่อเปิดความหวานของวันนี้~</div>
 
-  <div class="name-row">
-    <input id="name" type="text" maxlength="20" value="กิ๊บ" placeholder="ใส่ชื่อเขา (ไม่ใส่ก็ได้)" aria-label="ชื่อเขา">
-  </div>
-
-  <div class="box-wrap" id="boxWrap">
-    <div class="gift" id="gift" role="button" tabindex="0" aria-label="เปิดกล่อง">
-      <svg width="170" height="170" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
-        <rect x="30" y="78" width="120" height="80" rx="12" fill="url(#bodyG)"/>
-        <rect x="22" y="58" width="136" height="34" rx="12" fill="url(#lidG)"/>
-        <rect x="80" y="58" width="20" height="100" fill="url(#ribG)"/>
-        <path d="M90 58 C 70 34, 44 40, 52 58 C 58 70, 80 62, 90 58 Z" fill="#FFD98E"/>
-        <path d="M90 58 C 110 34, 136 40, 128 58 C 122 70, 100 62, 90 58 Z" fill="#FFCB6E"/>
-        <circle cx="90" cy="57" r="9" fill="#FFB84D"/>
-        <defs>
-          <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9EBE"/><stop offset="1" stop-color="#F97AA6"/></linearGradient>
-          <linearGradient id="lidG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC2D6"/><stop offset="1" stop-color="#FF9EBE"/></linearGradient>
-          <linearGradient id="ribG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE29A"/><stop offset="1" stop-color="#FFCB6E"/></linearGradient>
-        </defs>
-      </svg>
+    <div class="name-row">
+      <input id="name" type="text" maxlength="20" value="กิ๊บ" placeholder="ใส่ชื่อเขา (ไม่ใส่ก็ได้)"
+        aria-label="ชื่อเขา">
     </div>
-    <div class="tap-hint" id="tapHint">แตะเลย 🎀</div>
-  </div>
 
-  <div class="panel" id="panel">
-    <div class="chips" id="chips">
-      <button class="chip active" data-cat="sweet">💗 คำหวาน</button>
-      <button class="chip" data-cat="fortune">🔮 คำทำนาย</button>
-      <button class="chip" data-cat="question">💬 ชวนคุย</button>
-      <button class="chip" data-cat="coupon">🎟️ คูปองรัก</button>
-    </div>
-    <div class="card" id="card">
-      <div class="ribbon-tag" id="tag">💌 ข้อความจากใจ</div>
-      <p class="msg" id="msg"></p>
-      <div class="actions">
-        <button class="btn primary" id="again">สุ่มอีกครั้ง 🎁</button>
-        <button class="btn soft" id="copy">คัดลอก 💌</button>
+    <div class="box-wrap" id="boxWrap">
+      <div class="gift" id="gift" role="button" tabindex="0" aria-label="เปิดกล่อง">
+        <svg width="170" height="170" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="78" width="120" height="80" rx="12" fill="url(#bodyG)" />
+          <rect x="22" y="58" width="136" height="34" rx="12" fill="url(#lidG)" />
+          <rect x="80" y="58" width="20" height="100" fill="url(#ribG)" />
+          <path d="M90 58 C 70 34, 44 40, 52 58 C 58 70, 80 62, 90 58 Z" fill="#FFD98E" />
+          <path d="M90 58 C 110 34, 136 40, 128 58 C 122 70, 100 62, 90 58 Z" fill="#FFCB6E" />
+          <circle cx="90" cy="57" r="9" fill="#FFB84D" />
+          <defs>
+            <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FF9EBE" />
+              <stop offset="1" stop-color="#F97AA6" />
+            </linearGradient>
+            <linearGradient id="lidG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFC2D6" />
+              <stop offset="1" stop-color="#FF9EBE" />
+            </linearGradient>
+            <linearGradient id="ribG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFE29A" />
+              <stop offset="1" stop-color="#FFCB6E" />
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
-      <button class="mini-heart" id="miniHeart" aria-label="กดหัวใจ">🤍</button>
-      <div class="hint-tiny">แตะหัวใจเล่นๆ สิ~ (มีอะไรซ่อนอยู่นะ 🤫)</div>
+      <div class="tap-hint" id="tapHint">แตะเลย 🎀</div>
+    </div>
+
+    <div class="panel" id="panel">
+      <div class="chips" id="chips">
+        <button class="chip active" data-cat="sweet">💗 คำหวาน</button>
+        <button class="chip" data-cat="fortune">🔮 คำทำนาย</button>
+        <button class="chip" data-cat="question">💬 ชวนคุย</button>
+        <button class="chip" data-cat="coupon">🎟️ คูปองรัก</button>
+      </div>
+      <div class="card" id="card">
+        <div class="ribbon-tag" id="tag">💌 ข้อความจากใจ</div>
+        <p class="msg" id="msg"></p>
+        <div class="actions">
+          <button class="btn primary" id="again">สุ่มอีกครั้ง 🎁</button>
+          <button class="btn soft" id="copy">คัดลอก 💌</button>
+        </div>
+        <button class="mini-heart" id="miniHeart" aria-label="กดหัวใจ">🤍</button>
+        <div class="hint-tiny">ลองกดหัวใจค้างไว้สิ~ (มีอะไรซ่อนอยู่นะ 🤫)</div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-const DATA = {
-  sweet: {
-    tag: ["💌 ข้อความจากใจ","💗 สุ่มความหวาน"],
-    items: [
-      "คิดถึง{n}เป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺",
-      "{n}คือ notification เดียวที่เรารอทั้งวัน 💗",
-      "แค่เห็นชื่อ{n}เด้งขึ้นมา ก็ยิ้มคนเดียวแล้ว 😊",
-      "วันนี้เหนื่อยไหม{n}? มาคุยกับเราเดี๋ยวหายเหนื่อยเอง 🫶",
-      "ถ้า{n}คิดถึงกันให้กดหัวใจ... เรากดไปแล้วเป็นร้อยที 💘",
-      "อยากเป็นเหตุผลที่{n}ยิ้มก่อนนอนทุกคืนเลย 🌙",
-      "เก็บ{n}ไว้ในใจแล้วนะ ห้ามหนีไปไหน 🔒💕",
-      "แอบเผลอยิ้มทุกทีที่{n}พิมพ์มา รู้ตัวรึเปล่า 😳",
-      "{n}ทำให้วันธรรมดาๆ กลายเป็นวันพิเศษได้เก่งจัง 💫",
-      "อยากส่งกอดผ่านหน้าจอให้{n}จัง ทำไงดี 🤗",
-      "{n}คือแจ้งเตือนที่เราไม่เคยอยากปิดเสียงเลย 🔔💗",
-      "เลิกน่ารักได้แล้ว{n} เดี๋ยวเราหลงมากกว่านี้ 🥹",
-    ]
-  },
-  fortune: {
-    tag: ["🔮 คำทำนายวันนี้","💫 โชคชะตาบอกมา"],
-    items: [
-      "คำทำนายวันนี้: {n}จะได้เจอคนหน้าตาดี... ก็เรานี่แหละ 😎",
-      "ดวงความรักของ{n}วันนี้แข็งแรงมาก เพราะมีเราคอยส่งพลังให้ ✨",
-      "โชคชะตาบอกว่า... คืนนี้จะมีคนฝันถึง{n} (สปอย: คนนั้นคือเรา) 🌛",
-      "ผลตรวจดวงล่าสุด: {n}กับเราเข้ากันได้ 99.99% ที่เหลือคือความอาย 🙈",
-      "วันนี้ของ{n}เหมาะแก่การ... ทักเรามาก่อน จะได้โชคดีทั้งวัน 🍀",
-      "คำเตือน: ยิ่ง{n}คุยกับเรานาน ยิ่งเลิกคุยยากนะ 😜",
-      "ดวงบอกว่า{n}กำลังจะได้รับความหวานเกินโควตา เตรียมใจไว้ 🍬",
-      "ไพ่บอกว่า... วันนี้{n}ควรได้กินของอร่อย และเราขอไปด้วยคน 🍰",
-    ]
-  },
-  question: {
-    tag: ["💬 คำถามชวนคุย"],
-    items: [
-      "ถ้าพรุ่งนี้ได้ไปเที่ยวด้วยกัน อยากไปที่ไหนที่สุด?",
-      "เพลงที่ฟังแล้วนึกถึงเรา คือเพลงอะไร? 🎵",
-      "ตอนเด็กๆ โตขึ้นอยากเป็นอะไร?",
-      "ถ้ามีวันหยุดยาว 3 วัน อยากทำอะไรมากที่สุด?",
-      "เมนูโปรดที่กินได้ทุกวันไม่มีเบื่อ คืออะไร? 🍜",
-      "ความฝันเล็กๆ ที่อยากทำให้ได้ในปีนี้คืออะไร?",
-      "ถ้าได้ superpower 1 อย่าง อยากได้พลังอะไร?",
-      "ที่เที่ยวในฝันที่อยากไปสักครั้งในชีวิต?",
-      "อะไรที่ทำแล้วมีความสุขที่สุดในตอนนี้?",
-      "ถ้าให้บรรยายวันนี้เป็นอิโมจิ 1 ตัว จะเลือกตัวไหน? 😄",
-    ]
-  },
-  coupon: {
-    tag: ["🎟️ คูปองรัก"],
-    items: [
-      "🎟️ คูปองนี้แลก: อ้อนฟรี 1 ครั้ง (ไม่มีวันหมดอายุ)",
-      "🎟️ แลกสิทธิ์งอนได้ 1 ครั้ง โดยไม่ต้องมีเหตุผล",
-      "🎟️ แลกคำชมจากเรา 3 ประโยครวด",
-      "🎟️ แลกของหวาน 1 มื้อ (เราเลี้ยงเอง) 🍮",
-      "🎟️ แลกเพลงที่เราจะร้องให้ฟัง 1 เพลง 🎤",
-      "🎟️ แลกกอดเสมือนจริง 1 ครั้ง 🤗",
-      "🎟️ แลกสิทธิ์สั่งให้เราทำอะไรก็ได้ 1 อย่าง (ในขอบเขตน่ารักๆ)",
-    ]
-  },
-};
-const SECRET = [
-  "🔓 ข้อความลับ: จริงๆ นะ... เราแอบเปิดกล่องนี้บ่อยมาก เพื่อจะได้คิดถึง{n}แบบมีข้ออ้าง 🤭💗",
-  "🔓 ปลดล็อกความลับ: ที่สุ่มมาทั้งหมดน่ะจริงหมดเลยนะ โดยเฉพาะข้อที่บอกว่าชอบ{n} 🥰",
-  "🔓 เซอร์ไพรส์! {n}กดจนเจอข้อความลับได้ = ตั้งใจกับเราไม่แพ้กันเลยเนอะ 😚",
-];
+  <script>
+    const DATA = {
+      sweet: {
+        tag: ["💌 ข้อความจากใจ", "💗 สุ่มความหวาน"],
+        items: [
+          "คิดถึง{n}เป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺",
+          "{n}คือ notification เดียวที่เรารอทั้งวัน 💗",
+          "แค่เห็นชื่อ{n}เด้งขึ้นมา ก็ยิ้มคนเดียวแล้ว 😊",
+          "วันนี้เหนื่อยไหม{n}? มาคุยกับเราเดี๋ยวหายเหนื่อยเอง 🫶",
+          "ถ้า{n}คิดถึงกันให้กดหัวใจ... เรากดไปแล้วเป็นร้อยที 💘",
+          "อยากเป็นเหตุผลที่{n}ยิ้มก่อนนอนทุกคืนเลย 🌙",
+          "เก็บ{n}ไว้ในใจแล้วนะ ห้ามหนีไปไหน 🔒💕",
+          "แอบเผลอยิ้มทุกทีที่{n}พิมพ์มา รู้ตัวรึเปล่า 😳",
+          "{n}ทำให้วันธรรมดาๆ กลายเป็นวันพิเศษได้เก่งจัง 💫",
+          "อยากส่งกอดผ่านหน้าจอให้{n}จัง ทำไงดี 🤗",
+          "{n}คือแจ้งเตือนที่เราไม่เคยอยากปิดเสียงเลย 🔔💗",
+          "เลิกน่ารักได้แล้ว{n} เดี๋ยวเราหลงมากกว่านี้ 🥹",
+        ]
+      },
+      fortune: {
+        tag: ["🔮 คำทำนายวันนี้", "💫 โชคชะตาบอกมา"],
+        items: [
+          "คำทำนายวันนี้: {n}จะได้เจอคนหน้าตาดี... ก็เรานี่แหละ 😎",
+          "ดวงความรักของ{n}วันนี้แข็งแรงมาก เพราะมีเราคอยส่งพลังให้ ✨",
+          "โชคชะตาบอกว่า... คืนนี้จะมีคนฝันถึง{n} (สปอย: คนนั้นคือเรา) 🌛",
+          "ผลตรวจดวงล่าสุด: {n}กับเราเข้ากันได้ 99.99% ที่เหลือคือความอาย 🙈",
+          "วันนี้ของ{n}เหมาะแก่การ... ทักเรามาก่อน จะได้โชคดีทั้งวัน 🍀",
+          "คำเตือน: ยิ่ง{n}คุยกับเรานาน ยิ่งเลิกคุยยากนะ 😜",
+          "ดวงบอกว่า{n}กำลังจะได้รับความหวานเกินโควตา เตรียมใจไว้ 🍬",
+          "ไพ่บอกว่า... วันนี้{n}ควรได้กินของอร่อย และเราขอไปด้วยคน 🍰",
+        ]
+      },
+      question: {
+        tag: ["💬 คำถามชวนคุย"],
+        items: [
+          "ถ้าพรุ่งนี้ได้ไปเที่ยวด้วยกัน อยากไปที่ไหนที่สุด?",
+          "เพลงที่ฟังแล้วนึกถึงเรา คือเพลงอะไร? 🎵",
+          "ตอนเด็กๆ โตขึ้นอยากเป็นอะไร?",
+          "ถ้ามีวันหยุดยาว 3 วัน อยากทำอะไรมากที่สุด?",
+          "เมนูโปรดที่กินได้ทุกวันไม่มีเบื่อ คืออะไร? 🍜",
+          "ความฝันเล็กๆ ที่อยากทำให้ได้ในปีนี้คืออะไร?",
+          "ถ้าได้ superpower 1 อย่าง อยากได้พลังอะไร?",
+          "ที่เที่ยวในฝันที่อยากไปสักครั้งในชีวิต?",
+          "อะไรที่ทำแล้วมีความสุขที่สุดในตอนนี้?",
+          "ถ้าให้บรรยายวันนี้เป็นอิโมจิ 1 ตัว จะเลือกตัวไหน? 😄",
+        ]
+      },
+      coupon: {
+        tag: ["🎟️ คูปองรัก"],
+        items: [
+          "🎟️ คูปองนี้แลก: อ้อนฟรี 1 ครั้ง (ไม่มีวันหมดอายุ)",
+          "🎟️ แลกสิทธิ์งอนได้ 1 ครั้ง โดยไม่ต้องมีเหตุผล",
+          "🎟️ แลกคำชมจากเรา 3 ประโยครวด",
+          "🎟️ แลกของหวาน 1 มื้อ (เราเลี้ยงเอง) 🍮",
+          "🎟️ แลกเพลงที่เราจะร้องให้ฟัง 1 เพลง 🎤",
+          "🎟️ แลกกอดเสมือนจริง 1 ครั้ง 🤗",
+          "🎟️ แลกสิทธิ์สั่งให้เราทำอะไรก็ได้ 1 อย่าง (ในขอบเขตน่ารักๆ)",
+        ]
+      },
+    };
+    const SECRET = [
+      "🔓 ข้อความลับ: จริงๆ นะ... เราแอบเปิดกล่องนี้บ่อยมาก เพื่อจะได้คิดถึง{n}แบบมีข้ออ้าง 🤭💗",
+      "🔓 ปลดล็อกความลับ: ที่สุ่มมาทั้งหมดน่ะจริงหมดเลยนะ โดยเฉพาะข้อที่บอกว่าชอบ{n} 🥰",
+      "🔓 เซอร์ไพรส์! {n}กดจนเจอข้อความลับได้ = ตั้งใจกับเราไม่แพ้กันเลยเนอะ 😚",
+    ];
 
-let curCat = 'sweet';
-const lastIdx = {sweet:-1,fortune:-1,question:-1,coupon:-1,secret:-1};
-let muted = false;
-let audioCtx = null;
+    let curCat = 'sweet';
+    const lastIdx = { sweet: -1, fortune: -1, question: -1, coupon: -1, secret: -1 };
+    let muted = false;
+    let audioCtx = null;
 
-const $ = id => document.getElementById(id);
-const nameInput=$('name'), gift=$('gift'), boxWrap=$('boxWrap'), panel=$('panel'),
-      card=$('card'), msgEl=$('msg'), tagEl=$('tag'), titleEl=$('title'), subEl=$('subtitle');
+    const $ = id => document.getElementById(id);
+    const nameInput = $('name'), gift = $('gift'), boxWrap = $('boxWrap'), panel = $('panel'),
+      card = $('card'), msgEl = $('msg'), tagEl = $('tag'), titleEl = $('title'), subEl = $('subtitle');
 
-/* remember name across visits (works on hosted site; ignored if blocked) */
-try{ const saved=localStorage.getItem('lovebox_name'); if(saved) nameInput.value=saved; }catch(e){}
-nameInput.addEventListener('input',()=>{ try{ localStorage.setItem('lovebox_name',nameInput.value.trim()); }catch(e){} });
+    /* remember name across visits (works on hosted site; ignored if blocked) */
+    try { const saved = localStorage.getItem('lovebox_name'); if (saved) nameInput.value = saved; } catch (e) { }
+    nameInput.addEventListener('input', () => { try { localStorage.setItem('lovebox_name', nameInput.value.trim()); } catch (e) { } });
 
-function nm(){ return nameInput.value.trim() || 'เธอ'; }
-function apply(t){ return t.replace(/\{n\}/g, nm()); }
+    function nm() { return nameInput.value.trim() || 'เธอ'; }
+    function apply(t) { return t.replace(/\{n\}/g, nm()); }
 
-function pickFrom(cat, pool){
-  let i;
-  do { i = Math.floor(Math.random()*pool.length); } while(i===lastIdx[cat] && pool.length>1);
-  lastIdx[cat]=i;
-  return pool[i];
-}
+    function pickFrom(cat, pool) {
+      let i;
+      do { i = Math.floor(Math.random() * pool.length); } while (i === lastIdx[cat] && pool.length > 1);
+      lastIdx[cat] = i;
+      return pool[i];
+    }
 
-/* ---- sound ---- */
-function ensureAudio(){ if(!audioCtx){ try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return audioCtx; }
-function tone(freqs, dur=0.25, gap=0.08){
-  if(muted) return; const ctx=ensureAudio(); if(!ctx) return;
-  const now=ctx.currentTime;
-  freqs.forEach((f,i)=>{
-    const o=ctx.createOscillator(), g=ctx.createGain();
-    o.type='sine'; o.frequency.value=f; o.connect(g); g.connect(ctx.destination);
-    const t=now+i*gap;
-    g.gain.setValueAtTime(0.0001,t);
-    g.gain.exponentialRampToValueAtTime(0.22,t+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-    o.start(t); o.stop(t+dur+0.02);
-  });
-}
-const chimeOpen  = ()=> tone([783.99, 987.77, 1174.66]);      // G5 B5 D6
-const chimeBlip  = ()=> tone([1046.5], 0.14);                 // C6 tiny
-const chimeMagic = ()=> tone([659.25,783.99,987.77,1318.5], 0.3, 0.09);
+    /* ---- sound ---- */
+    function ensureAudio() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { } } return audioCtx; }
+    function tone(freqs, dur = 0.25, gap = 0.08) {
+      if (muted) return; const ctx = ensureAudio(); if (!ctx) return;
+      const now = ctx.currentTime;
+      freqs.forEach((f, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = f; o.connect(g); g.connect(ctx.destination);
+        const t = now + i * gap;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.22, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.start(t); o.stop(t + dur + 0.02);
+      });
+    }
+    const chimeOpen = () => tone([783.99, 987.77, 1174.66]);      // G5 B5 D6
+    const chimeBlip = () => tone([1046.5], 0.14);                 // C6 tiny
+    const chimeMagic = () => tone([659.25, 783.99, 987.77, 1318.5], 0.3, 0.09);
 
-/* ---- particles ---- */
-function burstAt(cx, cy, count, emojis){
-  const wrap=document.createElement('div'); wrap.className='burst';
-  wrap.style.left=cx+'px'; wrap.style.top=cy+'px';
-  for(let k=0;k<count;k++){
-    const s=document.createElement('span');
-    s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    const ang=Math.random()*Math.PI*2, dist=80+Math.random()*130;
-    s.style.setProperty('--tx', Math.cos(ang)*dist+'px');
-    s.style.setProperty('--ty', (Math.sin(ang)*dist-30)+'px');
-    s.style.setProperty('--r', (Math.random()*90-45)+'deg');
-    s.style.fontSize=(18+Math.random()*16)+'px';
-    wrap.appendChild(s);
-  }
-  document.body.appendChild(wrap);
-  setTimeout(()=>wrap.remove(),950);
-}
-function cardBurst(count){
-  const r=card.getBoundingClientRect();
-  burstAt(r.left+r.width/2, r.top+r.height/3, count, ['💗','💕','✨','💖','🎀','💫','🩷','⭐']);
-}
+    /* ---- particles ---- */
+    function burstAt(cx, cy, count, emojis) {
+      const wrap = document.createElement('div'); wrap.className = 'burst';
+      wrap.style.left = cx + 'px'; wrap.style.top = cy + 'px';
+      for (let k = 0; k < count; k++) {
+        const s = document.createElement('span');
+        s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        const ang = Math.random() * Math.PI * 2, dist = 80 + Math.random() * 130;
+        s.style.setProperty('--tx', Math.cos(ang) * dist + 'px');
+        s.style.setProperty('--ty', (Math.sin(ang) * dist - 30) + 'px');
+        s.style.setProperty('--r', (Math.random() * 90 - 45) + 'deg');
+        s.style.fontSize = (18 + Math.random() * 16) + 'px';
+        wrap.appendChild(s);
+      }
+      document.body.appendChild(wrap);
+      setTimeout(() => wrap.remove(), 950);
+    }
+    function cardBurst(count) {
+      const r = card.getBoundingClientRect();
+      burstAt(r.left + r.width / 2, r.top + r.height / 3, count, ['💗', '💕', '✨', '💖', '🎀', '💫', '🩷', '⭐']);
+    }
 
-/* ---- reveal ---- */
-function reveal(first){
-  const d = DATA[curCat];
-  msgEl.textContent = apply(pickFrom(curCat, d.items));
-  tagEl.textContent = d.tag[Math.floor(Math.random()*d.tag.length)];
-  card.classList.remove('secret');
-  cardBurst(16); chimeOpen();
-  if(first){
-    titleEl.textContent='เปิดได้แล้ว~ 💖';
-    subEl.textContent='เลือกหมวดด้านบน หรือกดสุ่มอีกครั้งได้เรื่อยๆ นะ';
-    panel.classList.add('show');
-  } else {
-    card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
-  }
-}
+    /* ---- reveal ---- */
+    function reveal(first) {
+      const d = DATA[curCat];
+      msgEl.textContent = apply(pickFrom(curCat, d.items));
+      tagEl.textContent = d.tag[Math.floor(Math.random() * d.tag.length)];
+      card.classList.remove('secret');
+      cardBurst(16); chimeOpen();
+      if (first) {
+        titleEl.textContent = 'เปิดได้แล้ว~ 💖';
+        subEl.textContent = 'เลือกหมวดด้านบน หรือกดสุ่มอีกครั้งได้เรื่อยๆ นะ';
+        panel.classList.add('show');
+      } else {
+        card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+      }
+    }
 
-function openBox(){
-  ensureAudio();
-  gift.classList.add('pop');
-  setTimeout(()=>{ boxWrap.style.display='none'; reveal(true); }, 420);
-}
-gift.addEventListener('click', openBox);
-gift.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openBox(); }});
+    function openBox() {
+      ensureAudio();
+      gift.classList.add('pop');
+      setTimeout(() => { boxWrap.style.display = 'none'; reveal(true); }, 420);
+    }
+    gift.addEventListener('click', openBox);
+    gift.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBox(); } });
 
-/* ---- chips ---- */
-$('chips').addEventListener('click', e=>{
-  const b=e.target.closest('.chip'); if(!b) return;
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  b.classList.add('active'); curCat=b.dataset.cat; reveal(false);
-});
+    /* ---- chips ---- */
+    $('chips').addEventListener('click', e => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      b.classList.add('active'); curCat = b.dataset.cat; reveal(false);
+    });
 
-$('again').addEventListener('click', ()=> reveal(false));
-$('copy').addEventListener('click', e=>{
-  navigator.clipboard?.writeText(msgEl.textContent).then(()=>{
-    const b=e.target,t=b.textContent; b.textContent='คัดลอกแล้ว ✓';
-    setTimeout(()=>{ b.textContent=t; },1600);
-  }).catch(()=>{ e.target.textContent='คัดลอกไม่ได้ 🥲'; });
-});
+    $('again').addEventListener('click', () => reveal(false));
+    $('copy').addEventListener('click', e => {
+      navigator.clipboard?.writeText(msgEl.textContent).then(() => {
+        const b = e.target, t = b.textContent; b.textContent = 'คัดลอกแล้ว ✓';
+        setTimeout(() => { b.textContent = t; }, 1600);
+      }).catch(() => { e.target.textContent = 'คัดลอกไม่ได้ 🥲'; });
+    });
 
-/* ---- mute ---- */
-$('mute').addEventListener('click', e=>{ muted=!muted; e.currentTarget.textContent=muted?'🔇':'🔊'; if(!muted) chimeBlip(); });
+    /* ---- mute ---- */
+    $('mute').addEventListener('click', e => { muted = !muted; e.currentTarget.textContent = muted ? '🔇' : '🔊'; if (!muted) chimeBlip(); });
 
-/* ---- easter egg: rapid taps on the heart ---- */
-const miniHeart=$('miniHeart');
-let taps=[];
-miniHeart.addEventListener('click', ()=>{
-  const r=miniHeart.getBoundingClientRect();
-  const s=document.createElement('div'); s.className='rise'; s.textContent='💗';
-  s.style.left=(r.left+r.width/2-10)+'px'; s.style.top=(r.top-6)+'px';
-  document.body.appendChild(s); setTimeout(()=>s.remove(),800);
-  chimeBlip();
-  const now=Date.now(); taps.push(now); taps=taps.filter(t=>now-t<1600);
-  if(taps.length>=5){ taps=[]; triggerSecret(); }
-});
-function triggerSecret(){
-  card.classList.add('secret');
-  msgEl.textContent = apply(pickFrom('secret', SECRET));
-  tagEl.textContent = '🔓 ข้อความลับ';
-  miniHeart.textContent='❤️';
-  card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
-  cardBurst(30); chimeMagic();
-  setTimeout(()=>{ miniHeart.textContent='🤍'; }, 2500);
-}
+    /* ---- easter egg: Long Press on the heart ---- */
+    const miniHeart = $('miniHeart');
+    let holdTimer = null; // ตัวแปรสำหรับจับเวลาการกดค้าง
 
-/* ---- background hearts ---- */
-(function(){
-  const wrap=$('bgHearts'), hearts=['💗','💕','🎀','✨','🩷'];
-  for(let i=0;i<14;i++){
-    const s=document.createElement('span'); s.textContent=hearts[i%hearts.length];
-    s.style.left=Math.random()*100+'%'; s.style.fontSize=(14+Math.random()*16)+'px';
-    s.style.animationDuration=(9+Math.random()*8)+'s'; s.style.animationDelay=(Math.random()*8)+'s';
-    wrap.appendChild(s);
-  }
-})();
-</script>
+    // ฟังก์ชันสร้างหัวใจลอยขึ้นมาเวลาเริ่มแตะ
+    function spawnFloatingHeart() {
+      const r = miniHeart.getBoundingClientRect();
+      const s = document.createElement('div'); s.className = 'rise'; s.textContent = '💗';
+      s.style.left = (r.left + r.width / 2 - 10) + 'px'; s.style.top = (r.top - 6) + 'px';
+      document.body.appendChild(s); setTimeout(() => s.remove(), 800);
+      chimeBlip();
+    }
+
+    // เมื่อเริ่มกด/แตะ
+    function startHold(e) {
+      if (e.type === 'touchstart') e.preventDefault(); // ป้องกันการ Zoom ของจอ
+      spawnFloatingHeart();
+
+      // ตั้งเวลาจับค้างไว้ 1 วินาที (1000 มิลลิวินาที) ถ้ากดครบเวลาจะแสดงความลับ
+      holdTimer = setTimeout(() => {
+        triggerSecret();
+      }, 1000);
+    }
+
+    // เมื่อปล่อยมือ หรือเลื่อนนิ้วออก
+    function endHold() {
+      if (holdTimer) {
+        clearTimeout(holdTimer); // ยกเลิกการนับเวลาหากปล่อยมือก่อนครบ 1 วินาที
+        holdTimer = null;
+      }
+    }
+
+    // ผูก Event ให้รองรับทั้งการคลิกเมาส์ค้างและสัมผัสหน้าจอมือถือ
+    miniHeart.addEventListener('mousedown', startHold);
+    miniHeart.addEventListener('touchstart', startHold, { passive: false });
+
+    miniHeart.addEventListener('mouseup', endHold);
+    miniHeart.addEventListener('mouseleave', endHold);
+    miniHeart.addEventListener('touchend', endHold);
+    miniHeart.addEventListener('touchcancel', endHold);
+    function triggerSecret() {
+      card.classList.add('secret');
+      msgEl.textContent = apply(pickFrom('secret', SECRET));
+      tagEl.textContent = '🔓 ข้อความลับ';
+      miniHeart.textContent = '❤️';
+      card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+      cardBurst(30); chimeMagic();
+      setTimeout(() => { miniHeart.textContent = '🤍'; }, 2500);
+    }
+
+    /* ---- background hearts ---- */
+    (function () {
+      const wrap = $('bgHearts'), hearts = ['💗', '💕', '🎀', '✨', '🩷'];
+      for (let i = 0; i < 14; i++) {
+        const s = document.createElement('span'); s.textContent = hearts[i % hearts.length];
+        s.style.left = Math.random() * 100 + '%'; s.style.fontSize = (14 + Math.random() * 16) + 'px';
+        s.style.animationDuration = (9 + Math.random() * 8) + 's'; s.style.animationDelay = (Math.random() * 8) + 's';
+        wrap.appendChild(s);
+      }
+    })();
+  </script>
 </body>
+
 </html>
