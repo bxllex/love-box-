@@ -132,12 +132,20 @@
     .name-row input {
       font-family: "Mali", sans-serif;
       font-size: 1rem;
-      line-height: 1.2;
+
+      /* --- แก้ไขจุดนี้ --- */
+      height: 48px;
+      /* บังคับความสูงกล่องให้พอดี */
+      line-height: normal;
+      /* คืนค่ามาตรฐาน ไม่บีบวรรณยุกต์ */
+      padding: 0 18px;
+      /* ปรับเหลือแค่ซ้าย-ขวา ให้ height จัดแนวตั้งแทน */
+      /* ------------------- */
+
       color: var(--ink);
       border: 2px solid #FFDCE8;
       background: #fff;
       border-radius: 99px;
-      padding: 14px 18px 10px;
       width: min(280px, 80%);
       text-align: center;
       outline: none;
