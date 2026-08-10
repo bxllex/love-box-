@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>กล่องสุ่มคำหวาน 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#FF8FB1; --pink-deep:#E85A8A; --peach:#FFC9A3; --gold:#FFD98E;
+    --cream:#FFF8F3; --ink:#6B4655; --ink-soft:#9C7788; --lav:#F3E8FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Mali",system-ui,sans-serif;color:var(--ink);
+    min-height:100vh;overflow:hidden;position:relative;
+    display:flex;align-items:center;justify-content:center;padding:24px 18px;
+    background:
+      radial-gradient(120% 90% at 15% 0%, #FFE3EF 0%, transparent 55%),
+      radial-gradient(120% 90% at 100% 100%, #EAD9FF 0%, transparent 55%),
+      linear-gradient(160deg,#FFF0F6 0%, #FBEAF6 60%, #F1E6FF 100%);
+  }
+  /* floating background hearts */
+  .bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;
+    animation:float linear infinite}
+  @keyframes float{
+    0%{transform:translateY(0) rotate(0);opacity:0}
+    10%{opacity:.55}
+    100%{transform:translateY(-108vh) rotate(40deg);opacity:0}
+  }
+
+  .stage{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
+
+  .title{font-family:"Itim",cursive;font-size:clamp(1.7rem,7vw,2.3rem);
+    color:var(--pink-deep);line-height:1.2;margin-bottom:4px;
+    text-shadow:0 2px 0 #fff, 0 4px 14px rgba(232,90,138,.25)}
+  .subtitle{font-size:.95rem;color:var(--ink-soft);margin-bottom:26px}
+
+  /* gift box */
+  .box-wrap{position:relative;height:230px;display:flex;align-items:center;justify-content:center}
+  .gift{cursor:pointer;filter:drop-shadow(0 18px 26px rgba(232,90,138,.35));
+    animation:wiggle 2.2s ease-in-out infinite;transition:transform .25s ease}
+  .gift:hover{transform:scale(1.05)}
+  .gift:active{transform:scale(.94)}
+  .gift.pop{animation:pop .5s cubic-bezier(.3,1.4,.5,1) forwards}
+  @keyframes wiggle{
+    0%,100%{transform:rotate(-3deg)}
+    50%{transform:rotate(3deg)}
+  }
+  @keyframes pop{
+    0%{transform:scale(1)}
+    35%{transform:scale(1.18) rotate(-4deg)}
+    100%{transform:scale(0) rotate(12deg);opacity:0}
+  }
+  .tap-hint{position:absolute;bottom:2px;left:0;right:0;font-family:"Itim",cursive;
+    font-size:1.05rem;color:var(--pink-deep);animation:blink 1.6s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+
+  /* message card */
+  .card{position:relative;background:var(--cream);border-radius:28px;
+    padding:30px 26px 28px;box-shadow:0 22px 50px -22px rgba(232,90,138,.5);
+    border:2px solid #FFE1EC;display:none}
+  .card.show{display:block;animation:cardIn .5s cubic-bezier(.3,1.35,.5,1) both}
+  @keyframes cardIn{from{opacity:0;transform:scale(.8) translateY(14px)}to{opacity:1;transform:none}}
+  .ribbon-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;
+    font-family:"Itim",cursive;font-size:.95rem;padding:5px 18px;border-radius:99px;
+    box-shadow:0 8px 16px -6px rgba(232,90,138,.7);white-space:nowrap}
+  .msg{font-size:1.22rem;line-height:1.6;margin:14px 0 4px;min-height:3.2em;
+    display:flex;align-items:center;justify-content:center}
+  .card.swap .msg{animation:swap .4s ease}
+  @keyframes swap{0%{opacity:0;transform:scale(.92)}100%{opacity:1;transform:none}}
+
+  .actions{display:flex;gap:12px;margin-top:22px}
+  .btn{flex:1;font-family:"Mali",sans-serif;font-weight:600;font-size:1rem;
+    border:none;cursor:pointer;border-radius:16px;padding:14px 12px;transition:transform .14s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+  .btn.primary{color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-deep));
+    box-shadow:0 12px 24px -12px rgba(232,90,138,.9)}
+  .btn.soft{color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8}
+
+  /* burst particles */
+  .burst{position:fixed;left:50%;top:45%;pointer-events:none;z-index:5}
+  .burst span{position:absolute;font-size:24px;animation:burst .9s ease-out forwards}
+  @keyframes burst{
+    0%{transform:translate(0,0) scale(.4);opacity:1}
+    100%{transform:translate(var(--tx),var(--ty)) scale(1.1) rotate(var(--r));opacity:0}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .gift,.tap-hint,.bg-hearts span{animation:none!important}
+  }
+  @media (max-width:420px){
+    .card{padding:26px 20px 24px}
+    .msg{font-size:1.12rem}
+  }
+</style>
+</head>
+<body>
+<div class="bg-hearts" id="bgHearts"></div>
+
+<div class="stage">
+  <div class="title" id="title">กล่องสุ่มคำหวาน 💌</div>
+  <div class="subtitle" id="subtitle">แตะกล่องเพื่อเปิดคำทำนายความรักของวันนี้~</div>
+
+  <div class="box-wrap" id="boxWrap">
+    <div class="gift" id="gift" role="button" tabindex="0" aria-label="เปิดกล่อง">
+      <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- box body -->
+        <rect x="30" y="78" width="120" height="80" rx="12" fill="#FF9EBE"/>
+        <rect x="30" y="78" width="120" height="80" rx="12" fill="url(#bodyG)"/>
+        <!-- lid -->
+        <rect x="22" y="58" width="136" height="34" rx="12" fill="#FFB3CD"/>
+        <rect x="22" y="58" width="136" height="34" rx="12" fill="url(#lidG)"/>
+        <!-- vertical ribbon -->
+        <rect x="80" y="58" width="20" height="100" fill="#FFD98E"/>
+        <rect x="80" y="58" width="20" height="100" fill="url(#ribG)"/>
+        <!-- bow -->
+        <path d="M90 58 C 70 34, 44 40, 52 58 C 58 70, 80 62, 90 58 Z" fill="#FFD98E"/>
+        <path d="M90 58 C 110 34, 136 40, 128 58 C 122 70, 100 62, 90 58 Z" fill="#FFCB6E"/>
+        <circle cx="90" cy="57" r="9" fill="#FFB84D"/>
+        <defs>
+          <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FF9EBE"/><stop offset="1" stop-color="#F97AA6"/>
+          </linearGradient>
+          <linearGradient id="lidG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFC2D6"/><stop offset="1" stop-color="#FF9EBE"/>
+          </linearGradient>
+          <linearGradient id="ribG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE29A"/><stop offset="1" stop-color="#FFCB6E"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="tap-hint" id="tapHint">แตะเลย 🎀</div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="ribbon-tag" id="tag">💌 ข้อความจากใจ</div>
+    <p class="msg" id="msg"></p>
+    <div class="actions">
+      <button class="btn primary" id="again">สุ่มอีกครั้ง 🎁</button>
+      <button class="btn soft" id="copy">คัดลอกส่งให้เขา 💌</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const MESSAGES = [
+  "คิดถึงเธอเป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺",
+  "เธอคือ notification เดียวที่เรารอทั้งวัน 💗",
+  "แค่เห็นชื่อเธอเด้งขึ้นมา ก็ยิ้มคนเดียวแล้ว 😊",
+  "วันนี้เหนื่อยไหม? มาคุยกับเราเดี๋ยวหายเหนื่อยเอง 🫶",
+  "ถ้าคิดถึงกันให้กดหัวใจ... เรากดไปแล้วเป็นร้อยที 💘",
+  "อยากเป็นเหตุผลที่เธอยิ้มก่อนนอนทุกคืนเลย 🌙",
+  "เก็บเธอไว้ในใจแล้วนะ ห้ามหนีไปไหน 🔒💕",
+  "คำทำนายวันนี้: เธอจะได้เจอคนหน้าตาดี... ก็เรานี่แหละ 😎",
+  "ดวงความรักวันนี้แข็งแรงมาก เพราะมีเราคอยส่งพลังให้ ✨",
+  "เตือนภัย: การคุยกับเรามีผลข้างเคียงคือยิ้มคนเดียว โปรดระวัง 😌",
+  "โชคชะตาบอกว่า... คืนนี้จะมีคนฝันถึงเธอ (สปอย: คนนั้นคือเรา) 🌛",
+  "ผลตรวจดวงล่าสุด: เธอกับเราเข้ากันได้ 99.99% ที่เหลือคือความอาย 🙈",
+  "วันนี้เหมาะแก่การ... ทักเรามาคุยก่อน จะได้โชคดีทั้งวัน 🍀",
+  "คำเตือน: ยิ่งคุยกับเรานาน ยิ่งเลิกคุยยากนะ 😜",
+  "สุ่มได้รางวัลใหญ่! รางวัลคือ ‘สิทธิ์กวนใจเราได้ทั้งวัน’ 🎉",
+  "แอบเผลอยิ้มทุกทีที่เธอพิมพ์มา รู้ตัวรึเปล่า 😳",
+  "ถ้าให้เลือกของขวัญวันนี้ เราขอแค่เธอทักมาก่อนก็พอ 🎁",
+  "เธอทำให้วันธรรมดาๆ กลายเป็นวันพิเศษได้เก่งจัง 💫",
+  "รู้ไหมว่าตอนนี้เรากำลังยิ้มอยู่ เพราะกำลังคิดถึงเธอ 😚",
+  "อยากส่งกอดผ่านหน้าจอให้จัง ทำไงดี 🤗",
+  "เธอคือแจ้งเตือนที่เราไม่เคยอยากปิดเสียงเลย 🔔💗",
+  "เลิกน่ารักได้แล้ว เดี๋ยวเราหลงมากกว่านี้ 🥹",
+  "วันนี้ขอจองเวลาเธอ 5 นาทีก่อนนอนได้ไหม อยากคุยด้วย 🌷",
+  "ทายซิ วันนี้คิดถึงใครมากที่สุด... ใบ้ให้ว่าขึ้นต้นด้วย ‘เ’ 😆",
+  "ขอให้วันนี้ของเธอหวานเท่ากับตอนที่คุยกับเรานะ 🍬",
+  "ถ้าความคิดถึงแลกเป็นแต้มได้ เราคงแลกของรางวัลได้ทั้งร้านแล้ว 🛒💕",
+  "อย่าเพิ่งง่วงนะ อยากคุยกับเธออีกนิดนึง 🥺💤",
+  "โปรดทราบ: หัวใจดวงนี้ถูกจองแล้ว โดยคนที่กำลังอ่านอยู่นี่แหละ 💌",
+];
+const TAGS = ["💌 ข้อความจากใจ","🔮 คำทำนายวันนี้","✨ สุ่มความหวาน","💝 โชคชะตาบอกมา"];
+
+let last = -1;
+const gift = document.getElementById('gift');
+const boxWrap = document.getElementById('boxWrap');
+const card = document.getElementById('card');
+const msgEl = document.getElementById('msg');
+const tagEl = document.getElementById('tag');
+const titleEl = document.getElementById('title');
+const subEl = document.getElementById('subtitle');
+
+function pick(){
+  let i;
+  do { i = Math.floor(Math.random()*MESSAGES.length); } while(i===last && MESSAGES.length>1);
+  last = i;
+  return MESSAGES[i];
+}
+
+function burst(){
+  const wrap = document.createElement('div');
+  wrap.className = 'burst';
+  const emojis = ['💗','💕','✨','💖','🎀','💫','🩷','⭐'];
+  for(let k=0;k<16;k++){
+    const s = document.createElement('span');
+    s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    const ang = Math.random()*Math.PI*2;
+    const dist = 90 + Math.random()*120;
+    s.style.setProperty('--tx', Math.cos(ang)*dist+'px');
+    s.style.setProperty('--ty', (Math.sin(ang)*dist - 40)+'px');
+    s.style.setProperty('--r', (Math.random()*90-45)+'deg');
+    s.style.fontSize = (18+Math.random()*16)+'px';
+    wrap.appendChild(s);
+  }
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 950);
+}
+
+function reveal(first){
+  burst();
+  msgEl.textContent = pick();
+  tagEl.textContent = TAGS[Math.floor(Math.random()*TAGS.length)];
+  if(first){
+    titleEl.textContent = 'เปิดได้แล้ว~ 💖';
+    subEl.textContent = 'กดสุ่มอีกครั้งได้เรื่อยๆ นะ หรือก็อปส่งให้เขาเลย';
+    card.classList.add('show');
+  } else {
+    card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
+  }
+}
+
+function openBox(){
+  gift.classList.add('pop');
+  setTimeout(()=>{ boxWrap.style.display='none'; reveal(true); }, 420);
+}
+
+gift.addEventListener('click', openBox);
+gift.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openBox(); } });
+
+document.getElementById('again').addEventListener('click', ()=> reveal(false));
+document.getElementById('copy').addEventListener('click', (e)=>{
+  navigator.clipboard?.writeText(msgEl.textContent).then(()=>{
+    const b=e.target; const t=b.textContent;
+    b.textContent='คัดลอกแล้ว ✓';
+    setTimeout(()=>{ b.textContent=t; }, 1600);
+  }).catch(()=>{ e.target.textContent='คัดลอกไม่ได้ 🥲'; });
+});
+
+/* background floating hearts */
+(function(){
+  const wrap = document.getElementById('bgHearts');
+  const hearts = ['💗','💕','🎀','✨','🩷'];
+  for(let i=0;i<14;i++){
+    const s=document.createElement('span');
+    s.textContent = hearts[i%hearts.length];
+    s.style.left = Math.random()*100+'%';
+    s.style.fontSize = (14+Math.random()*16)+'px';
+    s.style.animationDuration = (9+Math.random()*8)+'s';
+    s.style.animationDelay = (Math.random()*8)+'s';
+    wrap.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
