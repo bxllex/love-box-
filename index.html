@@ -398,13 +398,14 @@
       cursor: pointer;
       font-size: 1.4rem;
       animation: beat 1.4s ease-in-out infinite;
-      line-height: 1
+      line-height: 1;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
 
-    touch-action: manipulation;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
+
 
     .mini-heart:focus-visible {
       outline: 3px solid var(--pink);
@@ -624,7 +625,7 @@
     ];
 
     let curCat = 'sweet';
-    const lastIdx = { sweet: -1, fortune: -1, question: -1, coupon: -1, secret: -1 };
+    const lastIdx = {sweet: -1, fortune: -1, question: -1, coupon: -1, secret: -1};
     let muted = false;
     let audioCtx = null;
 
@@ -633,21 +634,21 @@
       card = $('card'), msgEl = $('msg'), tagEl = $('tag'), titleEl = $('title'), subEl = $('subtitle');
 
     /* remember name across visits (works on hosted site; ignored if blocked) */
-    try { const saved = localStorage.getItem('lovebox_name'); if (saved) nameInput.value = saved; } catch (e) { }
-    nameInput.addEventListener('input', () => { try { localStorage.setItem('lovebox_name', nameInput.value.trim()); } catch (e) { } });
+    try {const saved = localStorage.getItem('lovebox_name'); if (saved) nameInput.value = saved;} catch (e) { }
+    nameInput.addEventListener('input', () => {try {localStorage.setItem('lovebox_name', nameInput.value.trim());} catch (e) { } });
 
-    function nm() { return nameInput.value.trim() || 'เธอ'; }
-    function apply(t) { return t.replace(/\{n\}/g, nm()); }
+    function nm() {return nameInput.value.trim() || 'เธอ';}
+    function apply(t) {return t.replace(/\{n\}/g, nm());}
 
     function pickFrom(cat, pool) {
       let i;
-      do { i = Math.floor(Math.random() * pool.length); } while (i === lastIdx[cat] && pool.length > 1);
+      do {i = Math.floor(Math.random() * pool.length);} while (i === lastIdx[cat] && pool.length > 1);
       lastIdx[cat] = i;
       return pool[i];
     }
 
     /* ---- sound ---- */
-    function ensureAudio() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { } } return audioCtx; }
+    function ensureAudio() {if (!audioCtx) {try {audioCtx = new (window.AudioContext || window.webkitAudioContext)();} catch (e) { } } return audioCtx;}
     function tone(freqs, dur = 0.25, gap = 0.08) {
       if (muted) return; const ctx = ensureAudio(); if (!ctx) return;
       const now = ctx.currentTime;
@@ -706,10 +707,10 @@
     function openBox() {
       ensureAudio();
       gift.classList.add('pop');
-      setTimeout(() => { boxWrap.style.display = 'none'; reveal(true); }, 420);
+      setTimeout(() => {boxWrap.style.display = 'none'; reveal(true);}, 420);
     }
     gift.addEventListener('click', openBox);
-    gift.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBox(); } });
+    gift.addEventListener('keydown', e => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault(); openBox();} });
 
     /* ---- chips ---- */
     $('chips').addEventListener('click', e => {
@@ -722,12 +723,12 @@
     $('copy').addEventListener('click', e => {
       navigator.clipboard?.writeText(msgEl.textContent).then(() => {
         const b = e.target, t = b.textContent; b.textContent = 'คัดลอกแล้ว ✓';
-        setTimeout(() => { b.textContent = t; }, 1600);
-      }).catch(() => { e.target.textContent = 'คัดลอกไม่ได้ 🥲'; });
+        setTimeout(() => {b.textContent = t;}, 1600);
+      }).catch(() => {e.target.textContent = 'คัดลอกไม่ได้ 🥲';});
     });
 
     /* ---- mute ---- */
-    $('mute').addEventListener('click', e => { muted = !muted; e.currentTarget.textContent = muted ? '🔇' : '🔊'; if (!muted) chimeBlip(); });
+    $('mute').addEventListener('click', e => {muted = !muted; e.currentTarget.textContent = muted ? '🔇' : '🔊'; if (!muted) chimeBlip();});
 
     /* ---- easter egg: Long Press on the heart ---- */
     const miniHeart = $('miniHeart');
@@ -763,7 +764,7 @@
 
     // ผูก Event ให้รองรับทั้งการคลิกเมาส์ค้างและสัมผัสหน้าจอมือถือ
     miniHeart.addEventListener('mousedown', startHold);
-    miniHeart.addEventListener('touchstart', startHold, { passive: false });
+    miniHeart.addEventListener('touchstart', startHold, {passive: false});
 
     miniHeart.addEventListener('mouseup', endHold);
     miniHeart.addEventListener('mouseleave', endHold);
@@ -776,7 +777,7 @@
       miniHeart.textContent = '❤️';
       card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
       cardBurst(30); chimeMagic();
-      setTimeout(() => { miniHeart.textContent = '🤍'; }, 2500);
+      setTimeout(() => {miniHeart.textContent = '🤍';}, 2500);
     }
 
     /* ---- background hearts ---- */
