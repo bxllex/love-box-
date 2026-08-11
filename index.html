@@ -11,6 +11,7 @@
   :root{
     --pink:#FF8FB1; --pink-deep:#E85A8A; --peach:#FFC9A3; --gold:#FFD98E;
     --violet:#B490E0; --teal:#6FC6C0; --cream:#FFF8F3; --ink:#6B4655; --ink-soft:#9C7788;
+    --bg:radial-gradient(120% 90% at 15% 0%,#FFE3EF 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#EAD9FF 0%,transparent 55%),linear-gradient(160deg,#FFF0F6 0%,#FBEAF6 60%,#F1E6FF 100%);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -19,10 +20,7 @@
     min-height:100vh;overflow-x:hidden;position:relative;touch-action:manipulation;
     -webkit-tap-highlight-color:transparent;
     display:flex;align-items:center;justify-content:center;padding:24px 18px;
-    background:
-      radial-gradient(120% 90% at 15% 0%, #FFE3EF 0%, transparent 55%),
-      radial-gradient(120% 90% at 100% 100%, #EAD9FF 0%, transparent 55%),
-      linear-gradient(160deg,#FFF0F6 0%, #FBEAF6 60%, #F1E6FF 100%);
+    background:var(--bg);
   }
   .bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
   .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;animation:float linear infinite}
@@ -47,6 +45,22 @@
     color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8;border-radius:99px;padding:9px 18px;text-decoration:none;
     transition:transform .14s ease}
   .page-link:hover{transform:translateY(-2px)}
+
+  /* greeting card maker */
+  .cm-box{background:var(--cream);border-radius:24px;border:2px solid #FFE1EC;max-width:380px;width:100%;padding:22px 20px;
+    box-shadow:0 24px 60px -20px rgba(90,50,80,.6);max-height:88vh;overflow:auto}
+  .cm-box h3{font-family:"Itim",cursive;color:var(--pink-deep);text-align:center;font-size:1.35rem;margin-bottom:12px}
+  .cm-box textarea{width:100%;font-family:"Mali",sans-serif;font-size:1rem;color:var(--ink);border:2px solid #FFDCE8;border-radius:14px;
+    padding:12px 14px;resize:none;outline:none;background:#fff;line-height:1.6}
+  .cm-box textarea:focus{border-color:var(--pink)}
+  .cm-stickers{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0}
+  .cm-stickers button{font-size:1.3rem;background:#fff;border:2px solid #FFDCE8;border-radius:12px;width:42px;height:42px;cursor:pointer}
+  .cm-stickers button.sel{border-color:var(--pink);background:#FFF0F5}
+  .cm-preview{background:linear-gradient(160deg,#FFF0F6,#F3E8FF);border:2px solid #FFE1EC;border-radius:18px;padding:22px 18px;
+    text-align:center;margin:6px 0 14px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+  .cm-preview .pe{font-size:2.4rem}
+  .cm-preview .pt{font-size:1.1rem;line-height:1.6;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+  .cm-preview .pf{font-family:"Itim",cursive;color:var(--pink-deep);font-size:.9rem;margin-top:4px}
 
   .box-wrap{position:relative;height:210px;display:flex;align-items:center;justify-content:center}
   .gift{cursor:pointer;filter:drop-shadow(0 18px 26px rgba(232,90,138,.35));animation:wiggle 2.2s ease-in-out infinite;transition:transform .25s ease}
@@ -120,6 +134,7 @@
 </head>
 <body>
 <div class="bg-hearts" id="bgHearts"></div>
+<button class="mute" id="themeBtn" aria-label="เปลี่ยนธีม" style="right:auto;left:14px">🌸</button>
 <button class="mute" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
 
 <div class="stage">
@@ -129,6 +144,7 @@
     <input id="name" type="text" maxlength="20" value="กิ๊บ" placeholder="ใส่ชื่อเขา (ไม่ใส่ก็ได้)" aria-label="ชื่อเขา">
   </div>
   <a class="page-link" href="game.html">🎮 ไปเล่นเกมรัก →</a>
+  <button class="page-link" id="cardMakerBtn" style="cursor:pointer">💌 เขียนการ์ดถึงกิ๊บ</button>
 
   <div class="box-wrap" id="boxWrap">
     <div class="gift" id="gift" role="button" tabindex="0" aria-label="เปิดกล่อง">
@@ -192,6 +208,20 @@
     <div class="wheel-actions">
       <button class="btn primary" id="doSpin">หมุน! 🎯</button>
       <button class="btn soft" id="closeWheel">ปิด</button>
+    </div>
+  </div>
+</div>
+
+<!-- greeting card maker -->
+<div class="overlay" id="cardOverlay">
+  <div class="cm-box">
+    <h3>💌 เขียนการ์ดถึงกิ๊บ</h3>
+    <div class="cm-preview" id="cmPreview"><div class="pe" id="cmPe">💗</div><div class="pt" id="cmPt">พิมพ์ข้อความของเธอด้านล่างเลย~</div><div class="pf" id="cmPf">— ด้วยรักจากเรา</div></div>
+    <div class="cm-stickers" id="cmStickers"></div>
+    <textarea id="cmInput" rows="3" maxlength="200" placeholder="เขียนข้อความน่ารักๆ ถึงกิ๊บ..."></textarea>
+    <div class="actions" style="margin-top:14px">
+      <button class="btn primary" id="cmCopy">คัดลอกส่งให้กิ๊บ 💌</button>
+      <button class="btn ghost" id="cmClose">ปิด</button>
     </div>
   </div>
 </div>
@@ -363,6 +393,33 @@ shakeBtn.addEventListener('click',()=>{ if(shakeOn) return;
   if(typeof DeviceMotionEvent!=='undefined' && typeof DeviceMotionEvent.requestPermission==='function'){
     DeviceMotionEvent.requestPermission().then(s=>{ if(s==='granted'){ window.addEventListener('devicemotion',onMotion); shakeOn=true; shakeBtn.textContent='📳 เขย่าได้แล้ว'; } }).catch(()=>{ shakeBtn.textContent='📳 ใช้ไม่ได้'; });
   } else { window.addEventListener('devicemotion',onMotion); shakeOn=true; shakeBtn.textContent='📳 เขย่าได้แล้ว'; } });
+
+/* ---- theme (shared with game page) ---- */
+const THEMES=[
+ {k:'pink',ic:'🌸',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#FFE3EF 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#EAD9FF 0%,transparent 55%),linear-gradient(160deg,#FFF0F6 0%,#FBEAF6 60%,#F1E6FF 100%)','--pink':'#FF8FB1','--pink-deep':'#E85A8A','--cream':'#FFF8F3','--ink':'#6B4655','--ink-soft':'#9C7788'}},
+ {k:'peach',ic:'🍑',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#FFE8D6 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#FFD9C2 0%,transparent 55%),linear-gradient(160deg,#FFF3EA 0%,#FFEBE0 60%,#FFE4D6 100%)','--pink':'#FF9E6B','--pink-deep':'#F0743E','--cream':'#FFF9F4','--ink':'#6B4E3D','--ink-soft':'#A6836C'}},
+ {k:'mint',ic:'🌿',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#D7F5EC 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#CDEBF5 0%,transparent 55%),linear-gradient(160deg,#EEFBF6 0%,#E6F7F4 60%,#E2F2F7 100%)','--pink':'#4FC3A8','--pink-deep':'#2AA88B','--cream':'#F6FFFC','--ink':'#3E5A54','--ink-soft':'#7BA69B'}},
+ {k:'violet',ic:'💜',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#EADCFB 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#F3D9F0 0%,transparent 55%),linear-gradient(160deg,#F6EFFF 0%,#F0E6FB 60%,#EFE0F7 100%)','--pink':'#A98AE6','--pink-deep':'#7C55C9','--cream':'#FBF7FF','--ink':'#4A3B66','--ink-soft':'#8A7BB0'}},
+ {k:'night',ic:'🌙',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#3A2C4A 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#2C2440 0%,transparent 55%),linear-gradient(160deg,#241C33 0%,#2A2140 60%,#1F1930 100%)','--pink':'#FF9EC0','--pink-deep':'#FF9EC0','--cream':'#332A45','--ink':'#F3E9F5','--ink-soft':'#C6B4D6'}},
+];
+let themeIdx=0;
+function applyTheme(i){ themeIdx=(i+THEMES.length)%THEMES.length; const t=THEMES[themeIdx]; for(const k in t.v) document.documentElement.style.setProperty(k,t.v[k]); $('themeBtn').textContent=t.ic; try{localStorage.setItem('lovebox_theme',t.k);}catch(e){} }
+(function(){ let k='pink'; try{k=localStorage.getItem('lovebox_theme')||'pink';}catch(e){} const i=THEMES.findIndex(t=>t.k===k); applyTheme(i<0?0:i); })();
+$('themeBtn').addEventListener('click',()=>applyTheme(themeIdx+1));
+
+/* ---- greeting card maker ---- */
+const CM_STICKERS=['💗','🌸','⭐','🎀','🌙','🍬','🧸','🌈','💐','☀️'];
+let cmSticker='💗';
+(function(){ const box=$('cmStickers'); CM_STICKERS.forEach((e,i)=>{ const b=document.createElement('button'); b.textContent=e; if(i===0) b.classList.add('sel');
+  b.addEventListener('click',()=>{ cmSticker=e; document.querySelectorAll('#cmStickers button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); cmRender(); }); box.appendChild(b); }); })();
+function cmRender(){ $('cmPe').textContent=cmSticker; const v=$('cmInput').value.trim(); $('cmPt').textContent = v || 'พิมพ์ข้อความของเธอด้านล่างเลย~'; $('cmPf').textContent='— ถึง '+nm()+' ด้วยรักจากเรา'; }
+$('cmInput').addEventListener('input',cmRender);
+$('cardMakerBtn').addEventListener('click',()=>{ cmRender(); $('cardOverlay').classList.add('on'); });
+$('cmClose').addEventListener('click',()=>$('cardOverlay').classList.remove('on'));
+$('cardOverlay').addEventListener('click',e=>{ if(e.target===$('cardOverlay')) $('cardOverlay').classList.remove('on'); });
+$('cmCopy').addEventListener('click',e=>{ const v=$('cmInput').value.trim(); if(!v){ $('cmInput').focus(); return; }
+  const text=cmSticker+' '+v+'\n— ถึง '+nm()+' ด้วยรักจากเรา';
+  navigator.clipboard?.writeText(text).then(()=>{ const b=e.target,t=b.textContent; b.textContent='คัดลอกแล้ว ✓'; setTimeout(()=>b.textContent=t,1600); }).catch(()=>e.target.textContent='คัดลอกไม่ได้ 🥲'); });
 
 (function(){ const wrap=$('bgHearts'),h=['💗','💕','🎀','✨','🩷']; for(let i=0;i<14;i++){ const s=document.createElement('span'); s.textContent=h[i%h.length];
   s.style.left=Math.random()*100+'%'; s.style.fontSize=(14+Math.random()*16)+'px'; s.style.animationDuration=(9+Math.random()*8)+'s'; s.style.animationDelay=(Math.random()*8)+'s'; wrap.appendChild(s); } })();

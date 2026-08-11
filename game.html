@@ -9,127 +9,103 @@
 <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{--pink:#FF8FB1;--pink-deep:#E85A8A;--gold:#FFD98E;--violet:#B490E0;--teal:#6FC6C0;
-    --cream:#FFF8F3;--ink:#6B4655;--ink-soft:#9C7788}
+    --cream:#FFF8F3;--ink:#6B4655;--ink-soft:#9C7788;
+    --bg:radial-gradient(120% 90% at 15% 0%,#FFE3EF 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#EAD9FF 0%,transparent 55%),linear-gradient(160deg,#FFF0F6 0%,#FBEAF6 60%,#F1E6FF 100%)}
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
-  body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
-    position:relative;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-    display:flex;align-items:center;justify-content:center;padding:22px 16px;
-    background:radial-gradient(120% 90% at 15% 0%,#FFE3EF 0%,transparent 55%),
-      radial-gradient(120% 90% at 100% 100%,#EAD9FF 0%,transparent 55%),
-      linear-gradient(160deg,#FFF0F6 0%,#FBEAF6 60%,#F1E6FF 100%)}
+  body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;position:relative;
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;padding:22px 16px;background:var(--bg)}
   .bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
   .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;animation:float linear infinite}
   @keyframes float{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.55}100%{transform:translateY(-108vh) rotate(40deg);opacity:0}}
-  .mute{position:fixed;top:14px;right:14px;z-index:9;width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
-    background:#fff;color:var(--pink-deep);font-size:1.1rem;box-shadow:0 8px 18px -8px rgba(232,90,138,.6)}
+  .corner-btn{position:fixed;top:14px;z-index:9;width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+    background:#fff;color:var(--pink-deep);font-size:1.1rem;box-shadow:0 8px 18px -8px rgba(0,0,0,.25)}
+  #mute{right:14px}#themeBtn{left:14px}
 
   .stage{position:relative;z-index:1;width:100%;max-width:460px}
   .screen{display:none}.screen.active{display:block;animation:in .4s cubic-bezier(.3,1.3,.5,1) both}
   @keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-
-  .title{font-family:"Itim",cursive;font-size:clamp(1.8rem,7vw,2.4rem);color:var(--pink-deep);text-align:center;
-    line-height:1.3;text-shadow:0 2px 0 #fff,0 4px 14px rgba(232,90,138,.25)}
-  .subtitle{font-size:.95rem;color:var(--ink-soft);text-align:center;margin:4px 0 16px}
-  .name-row{display:flex;justify-content:center;margin-bottom:18px}
-  .name-row input{font-family:"Mali",sans-serif;font-size:.95rem;line-height:1.7;color:var(--ink);
-    border:2px solid #FFDCE8;background:#fff;border-radius:99px;padding:10px 18px 11px;width:min(280px,82%);text-align:center;outline:none}
-  .name-row input:focus{border-color:var(--pink)}.name-row input::placeholder{color:#C9A9B7}
-  .page-link{display:inline-block;margin:0 0 16px;font-family:"Mali",sans-serif;font-weight:600;font-size:.9rem;
-    color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8;border-radius:99px;padding:9px 18px;text-decoration:none;transition:transform .14s ease}
-  .page-link:hover{transform:translateY(-2px)}
-  .hub-links{text-align:center}
+  .title{font-family:"Itim",cursive;font-size:clamp(1.8rem,7vw,2.4rem);color:var(--pink-deep);text-align:center;line-height:1.3;text-shadow:0 2px 0 rgba(255,255,255,.5)}
+  .subtitle{font-size:.95rem;color:var(--ink-soft);text-align:center;margin:4px 0 14px}
+  .name-row{display:flex;justify-content:center;margin-bottom:10px}
+  .name-row input{font-family:"Mali",sans-serif;font-size:.95rem;line-height:1.7;color:var(--ink);border:2px solid var(--pink);
+    background:var(--cream);border-radius:99px;padding:10px 18px 11px;width:min(280px,82%);text-align:center;outline:none}
+  .page-link{display:inline-block;margin:0 0 16px;font-family:"Mali",sans-serif;font-weight:600;font-size:.9rem;color:var(--pink-deep);
+    background:var(--cream);border:2px solid var(--pink);border-radius:99px;padding:9px 18px;text-decoration:none;transition:transform .14s ease}
+  .page-link:hover{transform:translateY(-2px)}.hub-links{text-align:center}
 
   .menu{display:grid;gap:12px}
-  .game-card{display:flex;align-items:center;gap:14px;background:var(--cream);border:2px solid #FFE1EC;
-    border-radius:20px;padding:16px 18px;cursor:pointer;text-align:left;font-family:"Mali",sans-serif;
-    box-shadow:0 14px 30px -22px rgba(232,90,138,.5);transition:transform .14s ease,border-color .14s ease}
-  .game-card:hover{transform:translateY(-2px);border-color:var(--pink)}
-  .game-card:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
-  .game-card .ico{font-size:2rem;flex:0 0 auto;width:52px;height:52px;border-radius:16px;display:flex;
-    align-items:center;justify-content:center;background:linear-gradient(135deg,#FFE0EC,#F0E4FB)}
+  .game-card{display:flex;align-items:center;gap:14px;background:var(--cream);border:2px solid var(--pink);border-radius:20px;padding:16px 18px;
+    cursor:pointer;text-align:left;font-family:"Mali",sans-serif;box-shadow:0 14px 30px -22px rgba(0,0,0,.4);transition:transform .14s ease}
+  .game-card:hover{transform:translateY(-2px)}
+  .game-card .ico{font-size:2rem;flex:0 0 auto;width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.35)}
   .game-card .txt b{font-family:"Itim",cursive;font-size:1.15rem;color:var(--pink-deep);display:block}
   .game-card .txt small{color:var(--ink-soft);font-size:.82rem}
 
-  .panel{background:var(--cream);border:2px solid #FFE1EC;border-radius:26px;padding:20px 18px;
-    box-shadow:0 22px 50px -24px rgba(232,90,138,.5)}
-  .bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .panel{background:var(--cream);border:2px solid var(--pink);border-radius:26px;padding:20px 18px;box-shadow:0 22px 50px -24px rgba(0,0,0,.4)}
+  .bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px;flex-wrap:wrap}
   .back{background:none;border:none;cursor:pointer;color:var(--ink-soft);font-family:inherit;font-size:.92rem;padding:6px 2px}
   .back:hover{color:var(--pink-deep)}
-  .stat{font-family:"Itim",cursive;color:var(--pink-deep);font-size:1.05rem}
+  .stat{font-family:"Itim",cursive;color:var(--pink-deep);font-size:1rem}
 
-  .btn{font-family:"Mali",sans-serif;font-weight:600;font-size:1rem;border:none;cursor:pointer;border-radius:15px;
-    padding:13px 20px;transition:transform .14s ease}
+  .btn{font-family:"Mali",sans-serif;font-weight:600;font-size:1rem;border:none;cursor:pointer;border-radius:15px;padding:13px 20px;transition:transform .14s ease}
   .btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0)}
-  .btn:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
-  .btn.primary{color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-deep));box-shadow:0 12px 24px -12px rgba(232,90,138,.9)}
-  .btn.soft{color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8}
-  .btn.block{width:100%}
-  .row{display:flex;gap:10px}.row .btn{flex:1}
+  .btn.primary{color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-deep));box-shadow:0 12px 24px -12px rgba(0,0,0,.4)}
+  .btn.soft{color:var(--pink-deep);background:var(--cream);border:2px solid var(--pink)}
+  .btn.block{width:100%}.row{display:flex;gap:10px}.row .btn{flex:1}
 
-  /* tap game */
-  .arena{position:relative;height:340px;background:linear-gradient(160deg,#FFF3F8,#F3ECFC);
-    border-radius:18px;overflow:hidden;border:2px dashed #F3D3E0}
-  .pop-heart{position:absolute;font-size:2.2rem;cursor:pointer;user-select:none;transform:translate(-50%,-50%) scale(0);
-    animation:pin .3s ease forwards}
+  .arena{position:relative;height:340px;background:rgba(255,255,255,.25);border-radius:18px;overflow:hidden;border:2px dashed var(--pink)}
+  .pop-heart{position:absolute;font-size:2.2rem;cursor:pointer;user-select:none;transform:translate(-50%,-50%) scale(0);animation:pin .3s ease forwards}
   @keyframes pin{to{transform:translate(-50%,-50%) scale(1)}}
   .pop-heart.gone{animation:poof .25s ease forwards}
   @keyframes poof{to{transform:translate(-50%,-50%) scale(1.8);opacity:0}}
-  .center-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    font-family:"Itim",cursive;color:var(--pink-deep);font-size:1.3rem;text-align:center;padding:20px}
+  .center-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Itim",cursive;color:var(--pink-deep);font-size:1.3rem;text-align:center;padding:20px}
 
-  /* memory */
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .mcard{aspect-ratio:3/4;border-radius:14px;border:none;cursor:pointer;font-size:1.8rem;
-    background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;position:relative;
-    display:flex;align-items:center;justify-content:center;transition:transform .3s;transform-style:preserve-3d}
+  .mcard{aspect-ratio:3/4;border-radius:14px;border:none;cursor:pointer;font-size:1.8rem;position:relative;transition:transform .3s;transform-style:preserve-3d;background:transparent}
   .mcard .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;border-radius:14px}
-  .mcard .back{background:linear-gradient(135deg,#FFB3CD,#E85A8A)}
-  .mcard .front{background:var(--cream);border:2px solid #FFE1EC;transform:rotateY(180deg)}
-  .mcard.flip{transform:rotateY(180deg)}
-  .mcard.matched{opacity:.55}
+  .mcard .back{background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff}
+  .mcard .front{background:rgba(255,255,255,.5);border:2px solid var(--pink);transform:rotateY(180deg)}
+  .mcard.flip{transform:rotateY(180deg)}.mcard.matched{opacity:.5}
 
-  /* catch */
-  #catchCanvas{width:100%;height:360px;border-radius:18px;background:linear-gradient(160deg,#FFF3F8,#EEE6FB);
-    border:2px solid #F3D3E0;touch-action:none;display:block}
-  .lives{letter-spacing:2px}
+  #catchCanvas{width:100%;height:360px;border-radius:18px;background:rgba(255,255,255,.25);border:2px solid var(--pink);touch-action:none;display:block}
 
-  /* quiz */
-  .q-text{font-family:"Itim",cursive;font-size:1.25rem;color:var(--ink);text-align:center;margin:6px 0 16px;line-height:1.4}
-  .q-opts{display:grid;gap:10px}
-  .q-opt{font-family:"Mali",sans-serif;font-size:1rem;text-align:left;background:#fff;border:2px solid #FFDCE8;
-    color:var(--ink);border-radius:14px;padding:13px 16px;cursor:pointer;transition:border-color .14s,transform .12s}
-  .q-opt:hover{border-color:var(--pink);transform:translateY(-1px)}
-  .q-opt:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+  .gacha-wrap{text-align:center}
+  .machine{font-size:5rem;line-height:1;margin:6px 0 4px;transition:transform .15s}
+  .machine.shake{animation:shake .5s}
+  @keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(7deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(4deg)}}
+  .capsule{min-height:120px;display:flex;align-items:center;justify-content:center;margin:6px 0}
+  .gcard{background:rgba(255,255,255,.5);border:2px solid var(--pink);border-radius:18px;padding:16px 18px;min-width:200px;animation:pin2 .5s cubic-bezier(.3,1.4,.5,1) both}
+  @keyframes pin2{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+  .gcard .ge{font-size:2.6rem}.gcard .gt{font-size:1.05rem;margin-top:4px;color:var(--ink)}
+  .gcard .new{font-family:"Itim",cursive;color:var(--pink-deep);font-size:.85rem}
+  .coll-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .slot{aspect-ratio:1;border-radius:12px;background:rgba(255,255,255,.4);border:2px solid var(--pink);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+  .slot.locked{opacity:.4;font-size:1.1rem}
 
-  /* reward overlay */
-  .overlay{position:fixed;inset:0;z-index:20;background:rgba(90,50,80,.45);backdrop-filter:blur(3px);
-    display:none;align-items:center;justify-content:center;padding:24px}
+  .overlay{position:fixed;inset:0;z-index:20;background:rgba(50,30,55,.5);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px}
   .overlay.on{display:flex;animation:fade .25s ease both}
   @keyframes fade{from{opacity:0}to{opacity:1}}
-  .reward{background:var(--cream);border-radius:26px;border:2px solid var(--gold);padding:30px 24px 24px;
-    max-width:360px;width:100%;text-align:center;box-shadow:0 24px 60px -20px rgba(232,90,138,.6);position:relative}
-  .reward .tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FFC94D,#FF9E2C);
-    color:#fff;font-family:"Itim",cursive;font-size:.95rem;padding:5px 18px;border-radius:99px;white-space:nowrap}
-  .reward .score{font-family:"Itim",cursive;color:var(--pink-deep);font-size:1.5rem;margin:6px 0}
+  .reward{background:var(--cream);border-radius:26px;border:2px solid var(--gold);padding:30px 24px 24px;max-width:360px;width:100%;text-align:center;box-shadow:0 24px 60px -20px rgba(0,0,0,.5);position:relative}
+  .reward .tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FFC94D,#FF9E2C);color:#fff;font-family:"Itim",cursive;font-size:.95rem;padding:5px 18px;border-radius:99px;white-space:nowrap}
+  .reward .score{font-family:"Itim",cursive;color:var(--pink-deep);font-size:1.4rem;margin:6px 0}
   .reward .msg{font-size:1.12rem;line-height:1.6;color:var(--ink);margin:10px 0 20px}
-  .reward .row{margin-top:4px}
+  .coll-box{background:var(--cream);border-radius:24px;border:2px solid var(--pink);max-width:360px;width:100%;padding:20px;max-height:80vh;overflow:auto;box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+  .coll-box h3{font-family:"Itim",cursive;color:var(--pink-deep);text-align:center;font-size:1.3rem;margin-bottom:12px}
 
   .burst{position:fixed;pointer-events:none;z-index:25}
   .burst span{position:absolute;animation:burst .95s ease-out forwards}
   @keyframes burst{0%{transform:translate(0,0) scale(.4);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(1.15) rotate(var(--r));opacity:0}}
-
   @media (prefers-reduced-motion:reduce){.bg-hearts span{animation:none!important}}
-  @media (max-width:420px){.q-text{font-size:1.12rem}.mcard{font-size:1.5rem}}
+  @media (max-width:420px){.mcard{font-size:1.5rem}}
 </style>
 </head>
 <body>
 <div class="bg-hearts" id="bgHearts"></div>
-<button class="mute" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
+<button class="corner-btn" id="themeBtn" aria-label="เปลี่ยนธีม">🌸</button>
+<button class="corner-btn" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
 
 <div class="stage">
-
-  <!-- HUB -->
   <section class="screen active" id="hub">
     <div class="title">เกมรักของ<span id="hubName">กิ๊บ</span> 💖</div>
     <div class="subtitle">เล่นเกมให้ชนะ แล้วปลดล็อกคำหวานจากเรา~</div>
@@ -138,74 +114,98 @@
     <div class="menu">
       <button class="game-card" data-go="gameTap"><span class="ico">🎯</span><span class="txt"><b>กดหัวใจให้ทัน</b><small>หัวใจโผล่มาแตะให้ไว เก็บแต้มใน 20 วิ</small></span></button>
       <button class="game-card" data-go="gameMemory"><span class="ico">🃏</span><span class="txt"><b>จับคู่การ์ด</b><small>พลิกการ์ดจับคู่รูปเหมือนให้ครบ</small></span></button>
-      <button class="game-card" data-go="gameCatch"><span class="ico">🧺</span><span class="txt"><b>รับหัวใจที่ตกลงมา</b><small>ขยับตะกร้ารับหัวใจ หลบระเบิด</small></span></button>
+      <button class="game-card" data-go="gameCatch"><span class="ico">🧺</span><span class="txt"><b>รับหัวใจที่ตกลงมา</b><small>เอาตัวรอดให้นานที่สุด เก็บหัวใจ หลบระเบิด</small></span></button>
+      <button class="game-card" data-go="gameGacha"><span class="ico">🎰</span><span class="txt"><b>กาชาปองคำหวาน</b><small>หมุนสุ่มสะสมการ์ดคำหวานให้ครบ</small></span></button>
     </div>
   </section>
 
-  <!-- TAP -->
   <section class="screen" id="gameTap">
     <div class="panel">
-      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">แต้ม: <span id="tapScore">0</span> · ⏱ <span id="tapTime">20</span></span></div>
-      <div class="arena" id="tapArena"><div class="center-msg" id="tapCenter">แตะหัวใจให้ทันภายใน 20 วินาที!<br>พร้อมไหม? 💗</div></div>
+      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">แต้ม: <span id="tapScore">0</span> · ⏱ <span id="tapTime">20</span> · 🏆 <span id="tapHi">0</span></span></div>
+      <div class="arena" id="tapArena"><div class="center-msg" id="tapCenter">แตะหัวใจให้ทันภายใน 20 วินาที!<br>ยิ่งนานยิ่งเร็วนะ 💗</div></div>
       <div class="row" style="margin-top:14px"><button class="btn primary block" id="tapStart">เริ่มเล่น 🎯</button></div>
     </div>
   </section>
 
-  <!-- MEMORY -->
   <section class="screen" id="gameMemory">
     <div class="panel">
-      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">จับคู่: <span id="memPairs">0</span>/6 · ครั้ง <span id="memMoves">0</span></span></div>
+      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">คู่: <span id="memPairs">0</span>/6 · ครั้ง <span id="memMoves">0</span> · 🏆 <span id="memHi">-</span></span></div>
       <div class="grid" id="memGrid"></div>
       <div class="row" style="margin-top:14px"><button class="btn soft block" id="memRestart">สับใหม่ 🔀</button></div>
     </div>
   </section>
 
-  <!-- CATCH -->
   <section class="screen" id="gameCatch">
     <div class="panel">
-      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">💗 <span id="catchScore">0</span>/12 · <span class="lives" id="catchLives">❤️❤️❤️</span></span></div>
+      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">💗 <span id="catchScore">0</span> · <span id="catchLives">❤️❤️❤️</span> · 🏆 <span id="catchHi">0</span></span></div>
       <canvas id="catchCanvas"></canvas>
       <div class="row" style="margin-top:14px"><button class="btn primary block" id="catchStart">เริ่มเล่น 🧺</button></div>
-      <div class="subtitle" style="margin:10px 0 0">ลากนิ้ว/เมาส์ซ้าย-ขวาเพื่อขยับตะกร้า · รับ 💗 หลบ 💣</div>
+      <div class="subtitle" style="margin:10px 0 0">ลากนิ้ว/เมาส์ขยับตะกร้า · รับ 💗 หลบ 💣 · ยิ่งเล่นยิ่งเร็ว!</div>
+    </div>
+  </section>
+
+  <section class="screen" id="gameGacha">
+    <div class="panel gacha-wrap">
+      <div class="bar"><button class="back" data-back>← เมนู</button><span class="stat">สะสม <span id="gCount">0</span>/12</span></div>
+      <div class="machine" id="machine">🎰</div>
+      <div class="capsule" id="capsule"><div style="color:var(--ink-soft)">กดหมุนเพื่อสุ่มการ์ดคำหวาน~</div></div>
+      <div class="row"><button class="btn primary" id="gSpin" style="flex:2">หมุน! 🎲</button><button class="btn soft" id="gView">คอลเลกชัน</button></div>
     </div>
   </section>
 </div>
 
-<!-- REWARD -->
 <div class="overlay" id="reward">
   <div class="reward">
     <div class="tag" id="rewardTag">🎉 ปลดล็อกแล้ว!</div>
     <div class="score" id="rewardScore"></div>
     <div class="msg" id="rewardMsg"></div>
-    <div class="row">
-      <button class="btn soft" id="rewardAgain">เล่นอีก</button>
-      <button class="btn primary" id="rewardMenu">กลับเมนู</button>
-    </div>
+    <div class="row"><button class="btn soft" id="rewardAgain">เล่นอีก</button><button class="btn primary" id="rewardMenu">กลับเมนู</button></div>
+  </div>
+</div>
+
+<div class="overlay" id="collOverlay">
+  <div class="coll-box">
+    <h3>💝 คอลเลกชันคำหวาน (<span id="collCount">0</span>/12)</h3>
+    <div class="coll-grid" id="collGrid"></div>
+    <div class="row" style="margin-top:14px"><button class="btn soft" id="collReset">รีเซ็ต</button><button class="btn primary" id="collClose">ปิด</button></div>
   </div>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
+
+const THEMES=[
+ {k:'pink',ic:'🌸',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#FFE3EF 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#EAD9FF 0%,transparent 55%),linear-gradient(160deg,#FFF0F6 0%,#FBEAF6 60%,#F1E6FF 100%)','--pink':'#FF8FB1','--pink-deep':'#E85A8A','--cream':'#FFF8F3','--ink':'#6B4655','--ink-soft':'#9C7788'}},
+ {k:'peach',ic:'🍑',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#FFE8D6 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#FFD9C2 0%,transparent 55%),linear-gradient(160deg,#FFF3EA 0%,#FFEBE0 60%,#FFE4D6 100%)','--pink':'#FF9E6B','--pink-deep':'#F0743E','--cream':'#FFF9F4','--ink':'#6B4E3D','--ink-soft':'#A6836C'}},
+ {k:'mint',ic:'🌿',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#D7F5EC 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#CDEBF5 0%,transparent 55%),linear-gradient(160deg,#EEFBF6 0%,#E6F7F4 60%,#E2F2F7 100%)','--pink':'#4FC3A8','--pink-deep':'#2AA88B','--cream':'#F6FFFC','--ink':'#3E5A54','--ink-soft':'#7BA69B'}},
+ {k:'violet',ic:'💜',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#EADCFB 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#F3D9F0 0%,transparent 55%),linear-gradient(160deg,#F6EFFF 0%,#F0E6FB 60%,#EFE0F7 100%)','--pink':'#A98AE6','--pink-deep':'#7C55C9','--cream':'#FBF7FF','--ink':'#4A3B66','--ink-soft':'#8A7BB0'}},
+ {k:'night',ic:'🌙',v:{'--bg':'radial-gradient(120% 90% at 15% 0%,#3A2C4A 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#2C2440 0%,transparent 55%),linear-gradient(160deg,#241C33 0%,#2A2140 60%,#1F1930 100%)','--pink':'#FF9EC0','--pink-deep':'#FF9EC0','--cream':'#332A45','--ink':'#F3E9F5','--ink-soft':'#C6B4D6'}},
+];
+let themeIdx=0;
+function applyTheme(i){ themeIdx=(i+THEMES.length)%THEMES.length; const t=THEMES[themeIdx];
+  for(const k in t.v) document.documentElement.style.setProperty(k,t.v[k]); $('themeBtn').textContent=t.ic; try{localStorage.setItem('lovebox_theme',t.k);}catch(e){} }
+(function(){ let k='pink'; try{k=localStorage.getItem('lovebox_theme')||'pink';}catch(e){} const i=THEMES.findIndex(t=>t.k===k); applyTheme(i<0?0:i); })();
+$('themeBtn').addEventListener('click',()=>applyTheme(themeIdx+1));
+
 const nameInput=$('name');
 try{ const s=localStorage.getItem('lovebox_name'); if(s) nameInput.value=s; }catch(e){}
-const nm=()=> (nameInput.value.trim()||'เธอ');
+const nm=()=>(nameInput.value.trim()||'เธอ');
 function syncName(){ $('hubName').textContent=nm(); try{ localStorage.setItem('lovebox_name',nameInput.value.trim()); }catch(e){} }
 nameInput.addEventListener('input',syncName); syncName();
+const apply=t=>t.replace(/\{n\}/g,nm());
 
-/* rewards */
-const REWARDS=[
-  "คิดถึง{n}เป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺","เก่งมาก{n}! รางวัลคือหัวใจของเราไปเลย 💗",
+let HI={tap:0,catch:0,mem:null}; try{HI=Object.assign(HI,JSON.parse(localStorage.getItem('lovebox_hi')||'{}'));}catch(e){}
+function saveHI(){ try{localStorage.setItem('lovebox_hi',JSON.stringify(HI));}catch(e){} }
+$('tapHi').textContent=HI.tap; $('catchHi').textContent=HI.catch; $('memHi').textContent=HI.mem==null?'-':HI.mem;
+
+const REWARDS=["คิดถึง{n}เป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺","เก่งมาก{n}! รางวัลคือหัวใจของเราไปเลย 💗",
   "{n}ทำให้วันธรรมดาๆ กลายเป็นวันพิเศษได้เก่งจัง 💫","แค่เห็นชื่อ{n} เราก็ยิ้มแล้ว 😊",
   "🎟️ คูปองแลกอ้อนฟรี 1 ครั้ง (ให้{n}โดยเฉพาะ)","อยากส่งกอดผ่านหน้าจอให้{n}จัง 🤗",
   "{n}คือคนเก่งและน่ารักที่สุดเลย รู้ตัวไหม 🥰","วันนี้{n}ทำดีที่สุดแล้ว ภูมิใจใน{n}นะ 👏💕",
-  "🎟️ คูปองแลกคำว่า 'รักนะ' 1 ครั้ง 💗","ชนะเกมได้ แต่ที่ชนะใจเราไปแล้วคือ{n} 😚",
-  "ขอบคุณที่น่ารักขนาดนี้นะ{n} 🌷","เก็บพลังไว้เยอะๆ นะ เดี๋ยวเราแอบขอไปหน่อย 🫧",
-];
-const apply=t=>t.replace(/\{n\}/g,nm());
+  "🎟️ คูปองแลกคำว่า 'รักนะ' 1 ครั้ง 💗","ชนะเกมได้ แต่ที่ชนะใจเราไปแล้วคือ{n} 😚","ขอบคุณที่น่ารักขนาดนี้นะ{n} 🌷"];
 let lastRw=-1;
 function pickReward(){ let i; do{ i=Math.floor(Math.random()*REWARDS.length); }while(i===lastRw); lastRw=i; return apply(REWARDS[i]); }
 
-/* sound */
 let muted=false,audioCtx=null;
 function ensureAudio(){ if(!audioCtx){ try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return audioCtx; }
 function tone(freqs,dur=0.2,gap=0.07){ if(muted) return; const ctx=ensureAudio(); if(!ctx) return; const now=ctx.currentTime;
@@ -214,7 +214,6 @@ function tone(freqs,dur=0.2,gap=0.07){ if(muted) return; const ctx=ensureAudio()
 const sGood=()=>tone([880,1174]); const sPop=()=>tone([1046],0.1); const sBad=()=>tone([200,150],0.2,0.06); const sWin=()=>tone([659,783,987,1318],0.28,0.09);
 $('mute').addEventListener('click',e=>{ muted=!muted; e.currentTarget.textContent=muted?'🔇':'🔊'; ensureAudio(); if(!muted) sPop(); });
 
-/* hearts burst */
 function hearts(cx,cy,count){ const wrap=document.createElement('div'); wrap.className='burst'; wrap.style.left=cx+'px'; wrap.style.top=cy+'px';
   const em=['💗','💕','✨','💖','🎀','💫','🩷','⭐']; for(let k=0;k<count;k++){ const s=document.createElement('span'); s.textContent=em[Math.floor(Math.random()*em.length)];
     const a=Math.random()*Math.PI*2,d=90+Math.random()*160; s.style.setProperty('--tx',Math.cos(a)*d+'px'); s.style.setProperty('--ty',(Math.sin(a)*d-20)+'px');
@@ -222,89 +221,72 @@ function hearts(cx,cy,count){ const wrap=document.createElement('div'); wrap.cla
   document.body.appendChild(wrap); setTimeout(()=>wrap.remove(),1000); }
 function bigHearts(){ hearts(innerWidth/2,innerHeight*0.4,40); }
 
-/* screen manager */
 let currentGame=null;
 function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); }
 function stopAll(){ stopTap(); stopCatch(); }
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{ ensureAudio(); currentGame=b.dataset.go; show(b.dataset.go); enter(b.dataset.go); }));
 document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',()=>{ stopAll(); show('hub'); }));
-function enter(id){ if(id==='gameMemory') memInit(); if(id==='gameCatch') catchReady(); if(id==='gameTap') tapReady(); }
+function enter(id){ if(id==='gameMemory') memInit(); if(id==='gameCatch') catchReady(); if(id==='gameTap') tapReady(); if(id==='gameGacha') gachaInit(); }
 
-/* reward overlay */
 function showReward(scoreText,tag){ $('rewardScore').textContent=scoreText||''; $('rewardTag').textContent=tag||'🎉 ปลดล็อกแล้ว!'; $('rewardMsg').textContent=pickReward(); $('reward').classList.add('on'); bigHearts(); sWin(); }
 $('rewardMenu').addEventListener('click',()=>{ $('reward').classList.remove('on'); stopAll(); show('hub'); });
 $('rewardAgain').addEventListener('click',()=>{ $('reward').classList.remove('on'); enter(currentGame); if(currentGame==='gameTap') tapStart(); if(currentGame==='gameCatch') catchStart(); });
 
-/* ============ GAME 1: TAP HEARTS ============ */
-let tapScore=0,tapTime=20,tapSpawn=null,tapTick=null,tapRunning=false;
-function tapReady(){ tapRunning=false; clearInterval(tapSpawn); clearInterval(tapTick); $('tapArena').querySelectorAll('.pop-heart').forEach(e=>e.remove());
-  $('tapCenter').style.display='flex'; $('tapCenter').innerHTML='แตะหัวใจให้ทันภายใน 20 วินาที!<br>พร้อมไหม? 💗'; $('tapScore').textContent='0'; $('tapTime').textContent='20'; $('tapStart').style.display=''; }
-function tapStart(){ tapScore=0; tapTime=20; tapRunning=true; $('tapScore').textContent='0'; $('tapTime').textContent='20';
-  $('tapCenter').style.display='none'; $('tapStart').style.display='none';
-  tapSpawn=setInterval(spawnHeart,650); tapTick=setInterval(()=>{ tapTime--; $('tapTime').textContent=tapTime; if(tapTime<=0) tapEnd(); },1000); }
+/* TAP */
+let tapScore=0,tapTime=20,tapTimer=null,tapTick=null,tapRunning=false;
+function tapReady(){ tapRunning=false; clearTimeout(tapTimer); clearInterval(tapTick); $('tapArena').querySelectorAll('.pop-heart').forEach(e=>e.remove());
+  $('tapCenter').style.display='flex'; $('tapScore').textContent='0'; $('tapTime').textContent='20'; $('tapHi').textContent=HI.tap; $('tapStart').style.display=''; }
+function tapStart(){ tapScore=0; tapTime=20; tapRunning=true; $('tapScore').textContent='0'; $('tapTime').textContent='20'; $('tapCenter').style.display='none'; $('tapStart').style.display='none';
+  scheduleSpawn(); tapTick=setInterval(()=>{ tapTime--; $('tapTime').textContent=tapTime; if(tapTime<=0) tapEnd(); },1000); }
+function scheduleSpawn(){ if(!tapRunning) return; spawnHeart(); const elapsed=20-tapTime; const delay=Math.max(300,720-elapsed*22); tapTimer=setTimeout(scheduleSpawn,delay); }
 function spawnHeart(){ if(!tapRunning) return; const arena=$('tapArena'); const h=document.createElement('div'); h.className='pop-heart';
-  const kinds=['💗','💗','💗','💛','⭐']; h.textContent=kinds[Math.floor(Math.random()*kinds.length)];
+  const kinds=['💗','💗','💗','💛','⭐']; h.textContent=kinds[Math.floor(Math.random()*kinds.length)]; const bonus=h.textContent==='⭐'; if(bonus) h.style.fontSize='2.6rem';
   const pad=34; h.style.left=(pad+Math.random()*(arena.clientWidth-pad*2))+'px'; h.style.top=(pad+Math.random()*(arena.clientHeight-pad*2))+'px';
-  const bonus=h.textContent==='⭐'; if(bonus) h.style.fontSize='2.6rem';
-  h.addEventListener('pointerdown',ev=>{ ev.preventDefault(); if(h.classList.contains('gone')) return; h.classList.add('gone');
-    tapScore+=bonus?3:1; $('tapScore').textContent=tapScore; sPop(); const r=h.getBoundingClientRect(); hearts(r.left+r.width/2,r.top+r.height/2,bonus?10:5);
-    setTimeout(()=>h.remove(),240); });
-  arena.appendChild(h); setTimeout(()=>{ if(h.parentNode&&!h.classList.contains('gone')) h.remove(); },1150); }
-function tapEnd(){ tapRunning=false; clearInterval(tapSpawn); clearInterval(tapTick); $('tapArena').querySelectorAll('.pop-heart').forEach(e=>e.remove());
-  showReward('ได้ '+tapScore+' แต้ม! 🎯'); }
-function stopTap(){ tapRunning=false; clearInterval(tapSpawn); clearInterval(tapTick); }
+  h.addEventListener('pointerdown',ev=>{ ev.preventDefault(); if(h.classList.contains('gone')) return; h.classList.add('gone'); tapScore+=bonus?3:1; $('tapScore').textContent=tapScore; sPop();
+    const r=h.getBoundingClientRect(); hearts(r.left+r.width/2,r.top+r.height/2,bonus?10:5); setTimeout(()=>h.remove(),240); });
+  arena.appendChild(h); const life=Math.max(650,1150-(20-tapTime)*22); setTimeout(()=>{ if(h.parentNode&&!h.classList.contains('gone')) h.remove(); },life); }
+function tapEnd(){ tapRunning=false; clearTimeout(tapTimer); clearInterval(tapTick); $('tapArena').querySelectorAll('.pop-heart').forEach(e=>e.remove());
+  let rec=''; if(tapScore>HI.tap){ HI.tap=tapScore; saveHI(); $('tapHi').textContent=HI.tap; rec=' ⭐ สถิติใหม่!'; } showReward('ได้ '+tapScore+' แต้ม!'+rec); }
+function stopTap(){ tapRunning=false; clearTimeout(tapTimer); clearInterval(tapTick); }
 $('tapStart').addEventListener('click',tapStart);
 
-/* ============ GAME 2: MEMORY ============ */
+/* MEMORY */
 const MEMO=['💗','🌸','⭐','🌙','🍬','🎀']; let memFlip=[],memLock=false,memPairs=0,memMoves=0;
-function memInit(){ memPairs=0; memMoves=0; memFlip=[]; memLock=false; $('memPairs').textContent='0'; $('memMoves').textContent='0';
-  const deck=[...MEMO,...MEMO].map(v=>({v,id:Math.random()})).sort((a,b)=>a.id-b.id);
-  const grid=$('memGrid'); grid.innerHTML='';
-  deck.forEach(c=>{ const b=document.createElement('button'); b.className='mcard'; b.dataset.v=c.v;
-    b.innerHTML='<span class="face back">❔</span><span class="face front">'+c.v+'</span>';
+function memInit(){ memPairs=0; memMoves=0; memFlip=[]; memLock=false; $('memPairs').textContent='0'; $('memMoves').textContent='0'; $('memHi').textContent=HI.mem==null?'-':HI.mem;
+  const deck=[...MEMO,...MEMO].map(v=>({v,id:Math.random()})).sort((a,b)=>a.id-b.id); const grid=$('memGrid'); grid.innerHTML='';
+  deck.forEach(c=>{ const b=document.createElement('button'); b.className='mcard'; b.dataset.v=c.v; b.innerHTML='<span class="face back">❔</span><span class="face front">'+c.v+'</span>';
     b.addEventListener('click',()=>memClick(b)); grid.appendChild(b); }); }
-function memClick(b){ if(memLock||b.classList.contains('flip')||b.classList.contains('matched')) return;
-  b.classList.add('flip'); sPop(); memFlip.push(b);
-  if(memFlip.length===2){ memMoves++; $('memMoves').textContent=memMoves; memLock=true;
-    const [a,c]=memFlip;
+function memClick(b){ if(memLock||b.classList.contains('flip')||b.classList.contains('matched')) return; b.classList.add('flip'); sPop(); memFlip.push(b);
+  if(memFlip.length===2){ memMoves++; $('memMoves').textContent=memMoves; memLock=true; const a=memFlip[0],c=memFlip[1];
     if(a.dataset.v===c.dataset.v){ setTimeout(()=>{ a.classList.add('matched'); c.classList.add('matched'); memFlip=[]; memLock=false; memPairs++; $('memPairs').textContent=memPairs; sGood();
-      const r=c.getBoundingClientRect(); hearts(r.left+r.width/2,r.top+r.height/2,6); if(memPairs===6) setTimeout(()=>showReward('จับคู่ครบใน '+memMoves+' ครั้ง! 🃏'),450); },420); }
+      const r=c.getBoundingClientRect(); hearts(r.left+r.width/2,r.top+r.height/2,6);
+      if(memPairs===6){ let rec=''; if(HI.mem==null||memMoves<HI.mem){ HI.mem=memMoves; saveHI(); $('memHi').textContent=HI.mem; rec=' ⭐ สถิติใหม่!'; } setTimeout(()=>showReward('จับคู่ครบใน '+memMoves+' ครั้ง!'+rec),450); } },420); }
     else { setTimeout(()=>{ a.classList.remove('flip'); c.classList.remove('flip'); memFlip=[]; memLock=false; },720); } } }
 $('memRestart').addEventListener('click',memInit);
 
-/* ============ GAME 3: CATCH ============ */
-const cv=$('catchCanvas'),cx=cv.getContext('2d'); let catchRAF=null,catchState=null;
+/* CATCH (endless) */
+const cv=$('catchCanvas'),cx=cv.getContext('2d'); let catchRAF=null,catchState=null,lastTs=0;
+function accent(){ return getComputedStyle(document.documentElement).getPropertyValue('--pink-deep')||'#E85A8A'; }
 function fitCanvas(){ const dpr=window.devicePixelRatio||1; const w=cv.clientWidth,h=cv.clientHeight; cv.width=w*dpr; cv.height=h*dpr; cx.setTransform(dpr,0,0,dpr,0,0); return {w,h}; }
-function catchReady(){ cancelAnimationFrame(catchRAF); const {w,h}=fitCanvas(); cx.clearRect(0,0,w,h);
-  cx.fillStyle='#E85A8A'; cx.font='700 18px Mali,sans-serif'; cx.textAlign='center'; cx.fillText('กดเริ่มเล่นเลย~ 🧺',w/2,h/2);
-  $('catchScore').textContent='0'; $('catchLives').textContent='❤️❤️❤️'; $('catchStart').style.display=''; }
-function catchStart(){ const {w,h}=fitCanvas(); $('catchStart').style.display='none';
-  catchState={w,h,bx:w/2,bw:78,items:[],score:0,lives:3,spawnT:0,speed:2.0,over:false,win:false};
-  $('catchScore').textContent='0'; $('catchLives').textContent='❤️❤️❤️'; lastTs=0; catchRAF=requestAnimationFrame(catchLoop); }
-let lastTs=0;
+function catchReady(){ cancelAnimationFrame(catchRAF); const d=fitCanvas(); cx.clearRect(0,0,d.w,d.h); cx.fillStyle=accent(); cx.font='700 18px Mali,sans-serif'; cx.textAlign='center'; cx.fillText('กดเริ่มเล่นเลย~ 🧺',d.w/2,d.h/2);
+  $('catchScore').textContent='0'; $('catchLives').textContent='❤️❤️❤️'; $('catchHi').textContent=HI.catch; $('catchStart').style.display=''; }
+function catchStart(){ const d=fitCanvas(); $('catchStart').style.display='none'; catchState={w:d.w,h:d.h,bx:d.w/2,bw:78,items:[],score:0,lives:3,spawnT:0,over:false}; $('catchScore').textContent='0'; $('catchLives').textContent='❤️❤️❤️'; lastTs=0; catchRAF=requestAnimationFrame(catchLoop); }
 function catchLoop(ts){ const s=catchState; if(!s||s.over) return; if(!lastTs) lastTs=ts; const dt=Math.min(40,ts-lastTs); lastTs=ts;
-  s.spawnT-=dt; if(s.spawnT<=0){ s.spawnT=620-Math.min(300,s.score*15); const bomb=Math.random()<0.28;
-    s.items.push({x:24+Math.random()*(s.w-48),y:-20,vy:s.speed+Math.random()*1.2,bomb}); }
-  for(const it of s.items){ it.y+=it.vy*dt/16; }
-  const basketY=s.h-30;
+  s.spawnT-=dt; if(s.spawnT<=0){ s.spawnT=700-Math.min(470,s.score*13); const bomb=Math.random()<(0.24+Math.min(0.16,s.score*0.004)); const speed=2+Math.min(3.2,s.score*0.07);
+    s.items.push({x:24+Math.random()*(s.w-48),y:-20,vy:speed+Math.random()*1.2,bomb}); }
+  for(const it of s.items) it.y+=it.vy*dt/16; const by=s.h-30;
   for(let i=s.items.length-1;i>=0;i--){ const it=s.items[i];
-    if(it.y>=basketY-18 && it.y<=basketY+22 && Math.abs(it.x-s.bx)<s.bw/2+16){
-      if(it.bomb){ s.lives--; $('catchLives').textContent='❤️'.repeat(Math.max(0,s.lives)); sBad(); const r=cv.getBoundingClientRect(); hearts(r.left+it.x,r.top+basketY,4);
-        if(s.lives<=0){ s.over=true; setTimeout(catchGameOver,300); } }
-      else { s.score++; $('catchScore').textContent=s.score; sPop(); const r=cv.getBoundingClientRect(); hearts(r.left+it.x,r.top+basketY,4);
-        if(s.score>=12){ s.over=true; s.win=true; setTimeout(()=>showReward('รับหัวใจครบ 12 ดวง! 🧺'),250); } }
+    if(it.y>=by-18&&it.y<=by+22&&Math.abs(it.x-s.bx)<s.bw/2+16){ const r=cv.getBoundingClientRect();
+      if(it.bomb){ s.lives--; $('catchLives').textContent='❤️'.repeat(Math.max(0,s.lives)); sBad(); hearts(r.left+it.x,r.top+by,4); if(s.lives<=0){ s.over=true; setTimeout(catchGameOver,300); } }
+      else { s.score++; $('catchScore').textContent=s.score; sPop(); hearts(r.left+it.x,r.top+by,4); }
       s.items.splice(i,1); continue; }
     if(it.y>s.h+24) s.items.splice(i,1); }
   drawCatch(); if(!s.over) catchRAF=requestAnimationFrame(catchLoop); }
-function drawCatch(){ const s=catchState; cx.clearRect(0,0,s.w,s.h);
-  for(const it of s.items){ cx.font='26px serif'; cx.textAlign='center'; cx.textBaseline='middle'; cx.fillText(it.bomb?'💣':'💗',it.x,it.y); }
-  const by=s.h-22; cx.fillStyle='#E85A8A'; cx.beginPath();
-  const bw=s.bw; cx.moveTo(s.bx-bw/2,by-14); cx.lineTo(s.bx+bw/2,by-14); cx.lineTo(s.bx+bw/2-8,by+14); cx.lineTo(s.bx-bw/2+8,by+14); cx.closePath(); cx.fill();
-  cx.fillStyle='#FFC2D6'; cx.fillRect(s.bx-bw/2,by-18,bw,7); cx.font='18px serif'; cx.textAlign='center'; cx.fillText('🧺',s.bx,by-2); }
-function catchGameOver(){ cancelAnimationFrame(catchRAF); const {w,h}=catchState; cx.clearRect(0,0,w,h);
-  cx.fillStyle='#E85A8A'; cx.font='700 20px Mali,sans-serif'; cx.textAlign='center';
-  cx.fillText('เกมจบ! ได้ '+catchState.score+' หัวใจ 💗',w/2,h/2-10); cx.font='600 15px Mali,sans-serif'; cx.fillStyle='#9C7788'; cx.fillText('กดเริ่มเล่นใหม่อีกครั้งนะ',w/2,h/2+18);
-  $('catchStart').style.display=''; $('catchStart').textContent='เล่นใหม่ 🔁'; }
+function drawCatch(){ const s=catchState; if(!s) return; cx.clearRect(0,0,s.w,s.h); for(const it of s.items){ cx.font='26px serif'; cx.textAlign='center'; cx.textBaseline='middle'; cx.fillText(it.bomb?'💣':'💗',it.x,it.y); }
+  const by=s.h-22,bw=s.bw; cx.fillStyle=accent(); cx.beginPath(); cx.moveTo(s.bx-bw/2,by-14); cx.lineTo(s.bx+bw/2,by-14); cx.lineTo(s.bx+bw/2-8,by+14); cx.lineTo(s.bx-bw/2+8,by+14); cx.closePath(); cx.fill();
+  cx.font='18px serif'; cx.textAlign='center'; cx.textBaseline='middle'; cx.fillText('🧺',s.bx,by-2); }
+function catchGameOver(){ cancelAnimationFrame(catchRAF); drawCatch(); let rec=''; if(catchState.score>HI.catch){ HI.catch=catchState.score; saveHI(); $('catchHi').textContent=HI.catch; rec=' ⭐ สถิติใหม่!'; }
+  $('catchStart').style.display=''; $('catchStart').textContent='เล่นใหม่ 🔁'; showReward('รับได้ '+catchState.score+' หัวใจ!'+rec); }
 function stopCatch(){ if(catchState) catchState.over=true; cancelAnimationFrame(catchRAF); }
 function moveBasket(clientX){ if(!catchState||catchState.over) return; const r=cv.getBoundingClientRect(); let x=clientX-r.left; x=Math.max(catchState.bw/2,Math.min(catchState.w-catchState.bw/2,x)); catchState.bx=x; }
 cv.addEventListener('pointerdown',e=>{ e.preventDefault(); moveBasket(e.clientX); });
@@ -312,7 +294,29 @@ cv.addEventListener('pointermove',e=>{ if(e.buttons||e.pointerType==='touch') mo
 window.addEventListener('keydown',e=>{ if(!catchState||catchState.over) return; if(e.key==='ArrowLeft') catchState.bx=Math.max(catchState.bw/2,catchState.bx-26); if(e.key==='ArrowRight') catchState.bx=Math.min(catchState.w-catchState.bw/2,catchState.bx+26); });
 $('catchStart').addEventListener('click',()=>{ $('catchStart').textContent='เริ่มเล่น 🧺'; catchStart(); });
 
-/* background hearts */
+/* GACHAPON */
+const GACHA=[
+ {e:'💗',t:'คิดถึง{n}นะ'},{e:'🌸',t:'{n}น่ารักที่สุด'},{e:'⭐',t:'{n}คือดาวของเรา'},{e:'🍬',t:'{n}หวานยิ่งกว่าลูกอม'},
+ {e:'🎀',t:'ของขวัญที่ดีที่สุดคือ{n}'},{e:'🌙',t:'ฝันดีนะ{n}'},{e:'🧸',t:'อยากกอด{n}'},{e:'🍀',t:'{n}คือความโชคดีของเรา'},
+ {e:'🌈',t:'{n}ทำให้วันสดใส'},{e:'💌',t:'มีเรื่องอยากบอก{n}ทุกวัน'},{e:'☀️',t:'{n}คือแสงแดดของเรา'},{e:'👑',t:'{n}คือที่หนึ่งในใจ'},
+];
+let gColl=new Set(); try{ (JSON.parse(localStorage.getItem('lovebox_gacha')||'[]')).forEach(i=>gColl.add(i)); }catch(e){}
+let gSpinning=false;
+function saveGacha(){ try{ localStorage.setItem('lovebox_gacha',JSON.stringify([...gColl])); }catch(e){} }
+function gachaInit(){ $('gCount').textContent=gColl.size; $('capsule').innerHTML='<div style="color:var(--ink-soft)">กดหมุนเพื่อสุ่มการ์ดคำหวาน~</div>'; }
+$('gSpin').addEventListener('click',()=>{ if(gSpinning) return; gSpinning=true; const m=$('machine'); m.classList.remove('shake'); void m.offsetWidth; m.classList.add('shake'); sPop();
+  $('capsule').innerHTML='<div style="font-size:2.4rem">🥚</div>';
+  setTimeout(()=>{ const idx=Math.floor(Math.random()*GACHA.length); const isNew=!gColl.has(idx); gColl.add(idx); saveGacha(); $('gCount').textContent=gColl.size;
+    const g=GACHA[idx]; $('capsule').innerHTML='<div class="gcard"><div class="ge">'+g.e+'</div><div class="gt">'+apply(g.t)+'</div><div class="new">'+(isNew?'✨ ได้การ์ดใหม่!':'ได้ซ้ำน้าา~')+'</div></div>';
+    if(isNew){ bigHearts(); sWin(); } else sGood(); gSpinning=false;
+    if(gColl.size===GACHA.length){ setTimeout(()=>showReward('สะสมครบ 12 การ์ดแล้ว! 🏆','💝 คอลเลกชันครบ!'),700); } },560); });
+$('gView').addEventListener('click',()=>{ const grid=$('collGrid'); $('collCount').textContent=gColl.size; grid.innerHTML='';
+  GACHA.forEach((g,i)=>{ const d=document.createElement('div'); if(gColl.has(i)){ d.className='slot'; d.textContent=g.e; d.title=apply(g.t); } else { d.className='slot locked'; d.textContent='❔'; } grid.appendChild(d); });
+  $('collOverlay').classList.add('on'); });
+$('collClose').addEventListener('click',()=>$('collOverlay').classList.remove('on'));
+$('collOverlay').addEventListener('click',e=>{ if(e.target===$('collOverlay')) $('collOverlay').classList.remove('on'); });
+$('collReset').addEventListener('click',()=>{ gColl=new Set(); saveGacha(); $('gCount').textContent='0'; $('gView').click(); });
+
 (function(){ const wrap=$('bgHearts'),h=['💗','💕','🎀','✨','🩷']; for(let i=0;i<14;i++){ const s=document.createElement('span'); s.textContent=h[i%h.length];
   s.style.left=Math.random()*100+'%'; s.style.fontSize=(14+Math.random()*16)+'px'; s.style.animationDuration=(9+Math.random()*8)+'s'; s.style.animationDelay=(Math.random()*8)+'s'; wrap.appendChild(s); } })();
 window.addEventListener('resize',()=>{ if(currentGame==='gameCatch'&&(!catchState||catchState.over)) catchReady(); });
