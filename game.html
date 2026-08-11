@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>เกมรัก 💖</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +13,14 @@
     --bg:radial-gradient(120% 90% at 15% 0%,#FFE3EF 0%,transparent 55%),radial-gradient(120% 90% at 100% 100%,#EAD9FF 0%,transparent 55%),linear-gradient(160deg,#FFF0F6 0%,#FBEAF6 60%,#F1E6FF 100%)}
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
-  body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;position:relative;
-    touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;padding:22px 16px;background:var(--bg)}
+  body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);min-height:100vh;min-height:100dvh;overflow-x:hidden;position:relative;overscroll-behavior:none;
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;padding:calc(18px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom));background:var(--bg)}
   .bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
   .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;animation:float linear infinite}
   @keyframes float{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.55}100%{transform:translateY(-108vh) rotate(40deg);opacity:0}}
-  .corner-btn{position:fixed;top:14px;z-index:9;width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+  .corner-btn{position:fixed;top:calc(12px + env(safe-area-inset-top));z-index:9;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
     background:#fff;color:var(--pink-deep);font-size:1.1rem;box-shadow:0 8px 18px -8px rgba(0,0,0,.25)}
-  #mute{right:14px}#themeBtn{left:14px}
+  #mute{right:calc(12px + env(safe-area-inset-right))}#themeBtn{left:calc(12px + env(safe-area-inset-left))}
 
   .stage{position:relative;z-index:1;width:100%;max-width:460px}
   .screen{display:none}.screen.active{display:block;animation:in .4s cubic-bezier(.3,1.3,.5,1) both}

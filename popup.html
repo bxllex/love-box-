@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>ถึงกิ๊บ 📖</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,8 +11,8 @@
   :root{--gold:#F0CE86;--gold-deep:#C79A4E;--rose:#E85A8A;--rose-deep:#C7416E;--cream:#FFF7EE;--ink:#5A3A50;--ink-soft:#8A6478}
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
-  body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);min-height:100vh;overflow:hidden;position:relative;
-    touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;padding:20px 14px;
+  body{font-family:"Mali",system-ui,sans-serif;color:var(--ink);min-height:100vh;min-height:100svh;overflow:hidden;position:relative;overscroll-behavior:none;
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom));
     background:radial-gradient(130% 100% at 50% -10%,#6A3358 0%,#4A2545 45%,#2E1830 100%)}
   body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(60% 45% at 50% 45%,rgba(240,206,134,.16),transparent 70%)}
 
@@ -23,10 +23,10 @@
   .spark{border-radius:50%;background:radial-gradient(circle,#FFF3D6,#F0CE86);animation:tw 3s ease-in-out infinite}
   @keyframes tw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:.95;transform:scale(1.1)}}
 
-  .mute{position:fixed;top:14px;right:14px;z-index:9;width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;
+  .mute{position:fixed;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));z-index:9;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
     background:rgba(255,247,238,.9);color:var(--rose-deep);font-size:1.1rem;box-shadow:0 8px 20px -6px rgba(0,0,0,.4)}
 
-  .book{position:relative;z-index:1;width:100%;max-width:420px;height:min(580px,82vh);perspective:1600px;cursor:pointer}
+  .book{position:relative;z-index:1;width:100%;max-width:420px;height:min(560px,82vh);height:min(560px,80svh);perspective:1600px;cursor:pointer}
   .book::before{content:"";position:absolute;inset:-14px;border-radius:30px;
     background:radial-gradient(60% 60% at 50% 40%,rgba(240,206,134,.35),transparent 72%);filter:blur(8px);z-index:-1}
 
@@ -109,11 +109,11 @@
   .btn.primary{color:#fff;background:linear-gradient(135deg,var(--rose),var(--rose-deep));box-shadow:0 12px 24px -12px rgba(199,65,110,.9)}
   .btn.soft{color:var(--rose-deep);background:#fff;border:2px solid #F3D3E0}
 
-  .nav{position:absolute;bottom:12px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:14px;z-index:6}
+  .nav{position:absolute;bottom:calc(10px + env(safe-area-inset-bottom));left:0;right:0;display:flex;align-items:center;justify-content:center;gap:14px;z-index:6}
   .dots{display:flex;gap:6px}
   .dots i{width:8px;height:8px;border-radius:50%;background:rgba(240,206,134,.4);transition:transform .2s,background .2s}
   .dots i.on{background:var(--gold);transform:scale(1.4)}
-  .arrow{background:none;border:none;color:var(--gold);font-size:1.3rem;cursor:pointer;padding:4px 8px;opacity:.75}
+  .arrow{background:none;border:none;color:var(--gold);font-size:1.4rem;cursor:pointer;padding:8px 12px;opacity:.75}
   .arrow[disabled]{opacity:.18;cursor:default}
 
   .burst{position:fixed;pointer-events:none;z-index:15}
@@ -156,7 +156,7 @@
       </div></div>
       <div class="layer" data-depth="40" style="left:50%;bottom:120px;transform:translateX(-50%)"><div class="fold" style="font-size:2rem">✨🌈✨</div></div>
     </div>
-    <div class="banner">ตั้งแต่พี่ได้คุยกับกิ๊บ<br>วันธรรมดาๆ ก็พิเศษขึ้นมาเลย 🌸</div>
+    <div class="banner" id="storyMsg1">ตั้งแต่พี่ได้คุยกับกิ๊บ<br>วันธรรมดาๆ ก็พิเศษขึ้นมาเลย 🌸</div>
   </section>
 
   <!-- page 2: bear + hearts -->
@@ -179,7 +179,7 @@
       <div class="layer" data-depth="46" style="left:24%;bottom:120px"><div class="fold" style="font-size:1.6rem">💗</div></div>
       <div class="layer" data-depth="46" style="right:22%;bottom:130px"><div class="fold" style="font-size:1.3rem">💗</div></div>
     </div>
-    <div class="banner">ขอบคุณที่เข้ามา<br>ทำให้พี่ยิ้มบ่อยขึ้นกว่าเดิมนะ 🧸💗</div>
+    <div class="banner" id="storyMsg2">ขอบคุณที่เข้ามา<br>ทำให้พี่ยิ้มบ่อยขึ้นกว่าเดิมนะ 🧸💗</div>
   </section>
 
   <!-- page 3: word of the day (changes daily) -->
@@ -270,6 +270,24 @@ window.addEventListener('pointermove',e=>{ const px=(e.clientX/innerWidth-.5)*2,
 window.addEventListener('deviceorientation',e=>{ if(e.gamma==null) return; parallax(Math.max(-1,Math.min(1,e.gamma/30)),Math.max(-1,Math.min(1,(e.beta-45)/30))); });
 
 /* word of the day — changes daily, same for the whole day */
+const STORY1=[
+  "ตั้งแต่พี่ได้คุยกับกิ๊บ<br>วันธรรมดาๆ ก็พิเศษขึ้นมาเลย 🌸",
+  "แค่ได้เห็นกิ๊บทักมา<br>ทั้งวันก็สดใสขึ้นมาเลย ☀️",
+  "ทุกครั้งที่คุยกับกิ๊บ<br>เวลาผ่านไปเร็วจนไม่อยากให้จบ ⏳💗",
+  "ก่อนเจอกิ๊บกับหลังเจอกิ๊บ<br>วันของพี่ต่างกันเยอะเลยนะ 🌈",
+  "มีกิ๊บอยู่ในวัน<br>อะไรๆ ก็ดูน่ารักขึ้นไปหมด 🌷",
+  "พี่ชอบช่วงเวลาที่ได้คุยกับกิ๊บ<br>ที่สุดในแต่ละวันเลย 💫",
+  "ตั้งแต่มีกิ๊บ<br>พี่ตั้งตารอทุกวันมากขึ้นเลยนะ 📅💗",
+];
+const STORY2=[
+  "ขอบคุณที่เข้ามา<br>ทำให้พี่ยิ้มบ่อยขึ้นกว่าเดิมนะ 🧸💗",
+  "ขอบคุณที่เป็นกิ๊บ<br>คนที่ทำให้พี่หัวเราะได้เสมอ 😄",
+  "ขอบคุณที่คอยอยู่ตรงนี้<br>แม้ในวันที่พี่ไม่ค่อยโอเค 🫂",
+  "ขอบคุณที่ทำให้พี่รู้ว่า<br>การรอใครสักคนมันหวานแบบนี้เอง 🍬",
+  "ขอบคุณที่เข้ามาในวันของพี่<br>แล้วทำให้มันดีขึ้นทุกวันเลย 🌟",
+  "ขอบคุณสำหรับทุกข้อความ<br>ที่ทำให้พี่ยิ้มคนเดียวหน้าจอ 📱💗",
+  "ขอบคุณที่เป็นเหตุผล<br>ให้พี่อยากรีบตื่นมาทักทุกเช้า 🌅",
+];
 const DAILY=[
   "วันนี้ก็คิดถึงกิ๊บเหมือนทุกวันเลยนะ 🥰","ขอให้วันนี้ของกิ๊บเต็มไปด้วยเรื่องดีๆ นะ 🌷",
   "แค่รู้ว่ามีกิ๊บอยู่ วันของพี่ก็ดีขึ้นเยอะเลย ☀️","ยิ้มเยอะๆ นะวันนี้ รอยยิ้มกิ๊บน่ารักที่สุดเลย 😊",
@@ -286,6 +304,9 @@ const DAILY=[
 (function(){ const now=new Date();
   const dayNum=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000); // day of year (local)
   $('todayMsg').textContent=DAILY[dayNum%DAILY.length];
+  /* story pages 1 & 2 also change by day (use different offsets so they don't feel paired) */
+  $('storyMsg1').innerHTML=STORY1[dayNum%STORY1.length];
+  $('storyMsg2').innerHTML=STORY2[(dayNum+3)%STORY2.length];
   try{ $('todayDate').textContent=now.toLocaleDateString('th-TH',{weekday:'long',day:'numeric',month:'long'}); }catch(e){ $('todayDate').textContent=''; }
 })();
 

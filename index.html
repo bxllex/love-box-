@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>กล่องสุ่มคำหวาน 💌</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,16 +17,16 @@
   html{-webkit-text-size-adjust:100%}
   body{
     font-family:"Mali",system-ui,sans-serif;color:var(--ink);
-    min-height:100vh;overflow-x:hidden;position:relative;touch-action:manipulation;
+    min-height:100vh;min-height:100dvh;overflow-x:hidden;position:relative;touch-action:manipulation;overscroll-behavior:none;
     -webkit-tap-highlight-color:transparent;
-    display:flex;align-items:center;justify-content:center;padding:24px 18px;
+    display:flex;align-items:center;justify-content:center;padding:calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom));
     background:var(--bg);
   }
   .bg-hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
   .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;animation:float linear infinite}
   @keyframes float{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.55}100%{transform:translateY(-108vh) rotate(40deg);opacity:0}}
 
-  .mute{position:fixed;top:14px;right:14px;z-index:9;width:40px;height:40px;border-radius:50%;
+  .mute{position:fixed;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));z-index:9;width:44px;height:44px;border-radius:50%;
     border:none;cursor:pointer;background:#fff;color:var(--pink-deep);font-size:1.1rem;box-shadow:0 8px 18px -8px rgba(232,90,138,.6)}
   .mute:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 
