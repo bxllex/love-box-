@@ -108,9 +108,8 @@
 <div class="stage">
   <section class="screen active" id="hub">
     <div class="title">เกมรักของ<span id="hubName">กิ๊บ</span> 💖</div>
-    <div class="subtitle">เล่นเกมให้ชนะ แล้วปลดล็อกคำหวานจากเรา~</div>
-    <div class="name-row"><input id="name" type="text" maxlength="20" value="กิ๊บ" placeholder="ใส่ชื่อเขา" aria-label="ชื่อ"></div>
-    <div class="hub-links"><a class="page-link" href="index.html">💌 กลับไปกล่องคำหวาน</a></div>
+    <div class="subtitle">เล่นเกมให้ชนะ แล้วปลดล็อกคำหวานจากพี่~</div>
+    <div class="hub-links"><a class="page-link" href="index.html">💌 กลับไปกล่องคำหวาน</a> <a class="page-link" href="popup.html">📖 การ์ดป๊อปอัป</a></div>
     <div class="menu">
       <button class="game-card" data-go="gameTap"><span class="ico">🎯</span><span class="txt"><b>กดหัวใจให้ทัน</b><small>หัวใจโผล่มาแตะให้ไว เก็บแต้มใน 20 วิ</small></span></button>
       <button class="game-card" data-go="gameMemory"><span class="ico">🃏</span><span class="txt"><b>จับคู่การ์ด</b><small>พลิกการ์ดจับคู่รูปเหมือนให้ครบ</small></span></button>
@@ -187,22 +186,19 @@ function applyTheme(i){ themeIdx=(i+THEMES.length)%THEMES.length; const t=THEMES
 (function(){ let k='pink'; try{k=localStorage.getItem('lovebox_theme')||'pink';}catch(e){} const i=THEMES.findIndex(t=>t.k===k); applyTheme(i<0?0:i); })();
 $('themeBtn').addEventListener('click',()=>applyTheme(themeIdx+1));
 
-const nameInput=$('name');
-try{ const s=localStorage.getItem('lovebox_name'); if(s) nameInput.value=s; }catch(e){}
-const nm=()=>(nameInput.value.trim()||'เธอ');
-function syncName(){ $('hubName').textContent=nm(); try{ localStorage.setItem('lovebox_name',nameInput.value.trim()); }catch(e){} }
-nameInput.addEventListener('input',syncName); syncName();
+const nm=()=>'กิ๊บ';
+$('hubName').textContent=nm();
 const apply=t=>t.replace(/\{n\}/g,nm());
 
 let HI={tap:0,catch:0,mem:null}; try{HI=Object.assign(HI,JSON.parse(localStorage.getItem('lovebox_hi')||'{}'));}catch(e){}
 function saveHI(){ try{localStorage.setItem('lovebox_hi',JSON.stringify(HI));}catch(e){} }
 $('tapHi').textContent=HI.tap; $('catchHi').textContent=HI.catch; $('memHi').textContent=HI.mem==null?'-':HI.mem;
 
-const REWARDS=["คิดถึง{n}เป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺","เก่งมาก{n}! รางวัลคือหัวใจของเราไปเลย 💗",
-  "{n}ทำให้วันธรรมดาๆ กลายเป็นวันพิเศษได้เก่งจัง 💫","แค่เห็นชื่อ{n} เราก็ยิ้มแล้ว 😊",
+const REWARDS=["คิดถึง{n}เป็นระยะๆ ตลอดทั้งวันเลยนะ 🥺","เก่งมาก{n}! รางวัลคือหัวใจของพี่ไปเลย 💗",
+  "{n}ทำให้วันธรรมดาๆ กลายเป็นวันพิเศษได้เก่งจัง 💫","แค่เห็นชื่อ{n} พี่ก็ยิ้มแล้ว 😊",
   "🎟️ คูปองแลกอ้อนฟรี 1 ครั้ง (ให้{n}โดยเฉพาะ)","อยากส่งกอดผ่านหน้าจอให้{n}จัง 🤗",
   "{n}คือคนเก่งและน่ารักที่สุดเลย รู้ตัวไหม 🥰","วันนี้{n}ทำดีที่สุดแล้ว ภูมิใจใน{n}นะ 👏💕",
-  "🎟️ คูปองแลกคำว่า 'รักนะ' 1 ครั้ง 💗","ชนะเกมได้ แต่ที่ชนะใจเราไปแล้วคือ{n} 😚","ขอบคุณที่น่ารักขนาดนี้นะ{n} 🌷"];
+  "🎟️ คูปองแลกคำว่า 'รักนะ' 1 ครั้ง 💗","ชนะเกมได้ แต่ที่ชนะใจพี่ไปแล้วคือ{n} 😚","ขอบคุณที่น่ารักขนาดนี้นะ{n} 🌷"];
 let lastRw=-1;
 function pickReward(){ let i; do{ i=Math.floor(Math.random()*REWARDS.length); }while(i===lastRw); lastRw=i; return apply(REWARDS[i]); }
 
@@ -296,9 +292,9 @@ $('catchStart').addEventListener('click',()=>{ $('catchStart').textContent='เ�
 
 /* GACHAPON */
 const GACHA=[
- {e:'💗',t:'คิดถึง{n}นะ'},{e:'🌸',t:'{n}น่ารักที่สุด'},{e:'⭐',t:'{n}คือดาวของเรา'},{e:'🍬',t:'{n}หวานยิ่งกว่าลูกอม'},
- {e:'🎀',t:'ของขวัญที่ดีที่สุดคือ{n}'},{e:'🌙',t:'ฝันดีนะ{n}'},{e:'🧸',t:'อยากกอด{n}'},{e:'🍀',t:'{n}คือความโชคดีของเรา'},
- {e:'🌈',t:'{n}ทำให้วันสดใส'},{e:'💌',t:'มีเรื่องอยากบอก{n}ทุกวัน'},{e:'☀️',t:'{n}คือแสงแดดของเรา'},{e:'👑',t:'{n}คือที่หนึ่งในใจ'},
+ {e:'💗',t:'คิดถึง{n}นะ'},{e:'🌸',t:'{n}น่ารักที่สุด'},{e:'⭐',t:'{n}คือดาวของพี่'},{e:'🍬',t:'{n}หวานยิ่งกว่าลูกอม'},
+ {e:'🎀',t:'ของขวัญที่ดีที่สุดคือ{n}'},{e:'🌙',t:'ฝันดีนะ{n}'},{e:'🧸',t:'อยากกอด{n}'},{e:'🍀',t:'{n}คือความโชคดีของพี่'},
+ {e:'🌈',t:'{n}ทำให้วันสดใส'},{e:'💌',t:'มีเรื่องอยากบอก{n}ทุกวัน'},{e:'☀️',t:'{n}คือแสงแดดของพี่'},{e:'👑',t:'{n}คือที่หนึ่งในใจ'},
 ];
 let gColl=new Set(); try{ (JSON.parse(localStorage.getItem('lovebox_gacha')||'[]')).forEach(i=>gColl.add(i)); }catch(e){}
 let gSpinning=false;
