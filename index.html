@@ -28,11 +28,9 @@
   .bg-hearts span{position:absolute;bottom:-40px;font-size:22px;opacity:.5;animation:float linear infinite}
   @keyframes float{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.55}100%{transform:translateY(-108vh) rotate(40deg);opacity:0}}
 
-  .corner-btn{position:fixed;top:14px;z-index:9;width:40px;height:40px;border-radius:50%;
-    border:none;cursor:pointer;background:#fff;color:var(--pink-deep);font-size:1.1rem;
-    box-shadow:0 8px 18px -8px rgba(232,90,138,.6)}
-  .corner-btn:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
-  #mute{right:14px}#histBtn{left:14px}
+  .mute{position:fixed;top:14px;right:14px;z-index:9;width:40px;height:40px;border-radius:50%;
+    border:none;cursor:pointer;background:#fff;color:var(--pink-deep);font-size:1.1rem;box-shadow:0 8px 18px -8px rgba(232,90,138,.6)}
+  .mute:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
 
   .stage{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
   .title{font-family:"Itim",cursive;font-size:clamp(1.7rem,7vw,2.3rem);color:var(--pink-deep);
@@ -45,91 +43,70 @@
     text-align:center;outline:none;transition:border-color .15s ease}
   .name-row input:focus{border-color:var(--pink)}
   .name-row input::placeholder{color:#C9A9B7}
+  .page-link{display:inline-block;margin-bottom:16px;font-family:"Mali",sans-serif;font-weight:600;font-size:.9rem;
+    color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8;border-radius:99px;padding:9px 18px;text-decoration:none;
+    transition:transform .14s ease}
+  .page-link:hover{transform:translateY(-2px)}
 
   .box-wrap{position:relative;height:210px;display:flex;align-items:center;justify-content:center}
-  .gift{cursor:pointer;filter:drop-shadow(0 18px 26px rgba(232,90,138,.35));
-    animation:wiggle 2.2s ease-in-out infinite;transition:transform .25s ease}
+  .gift{cursor:pointer;filter:drop-shadow(0 18px 26px rgba(232,90,138,.35));animation:wiggle 2.2s ease-in-out infinite;transition:transform .25s ease}
   .gift:hover{transform:scale(1.05)}.gift:active{transform:scale(.94)}
   .gift.pop{animation:pop .5s cubic-bezier(.3,1.4,.5,1) forwards}
   @keyframes wiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
   @keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.18) rotate(-4deg)}100%{transform:scale(0) rotate(12deg);opacity:0}}
-  .tap-hint{position:absolute;bottom:-4px;left:0;right:0;font-family:"Itim",cursive;
-    font-size:1.05rem;color:var(--pink-deep);animation:blink 1.6s ease-in-out infinite}
+  .tap-hint{position:absolute;bottom:-4px;left:0;right:0;font-family:"Itim",cursive;font-size:1.05rem;color:var(--pink-deep);animation:blink 1.6s ease-in-out infinite}
   @keyframes blink{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
 
   .panel{display:none}.panel.show{display:block;animation:cardIn .5s cubic-bezier(.3,1.35,.5,1) both}
   .chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
   .chip{font-family:"Mali",sans-serif;font-weight:500;font-size:.88rem;cursor:pointer;
-    border:2px solid #FFDCE8;background:#fff;color:var(--pink-deep);border-radius:99px;padding:7px 13px;
-    transition:transform .12s ease, background .15s ease, color .15s ease}
-  .chip:hover{transform:translateY(-2px)}
-  .chip:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+    border:2px solid #FFDCE8;background:#fff;color:var(--pink-deep);border-radius:99px;padding:7px 13px;transition:transform .12s ease, background .15s ease, color .15s ease}
+  .chip:hover{transform:translateY(-2px)}.chip:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
   .chip.active{background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;border-color:transparent}
 
-  .card{position:relative;background:var(--cream);border-radius:28px;padding:32px 24px 24px;
-    box-shadow:0 22px 50px -22px rgba(232,90,138,.5);border:2px solid #FFE1EC}
+  .card{position:relative;background:var(--cream);border-radius:28px;padding:32px 24px 24px;box-shadow:0 22px 50px -22px rgba(232,90,138,.5);border:2px solid #FFE1EC}
   .card.secret{border-color:var(--gold);box-shadow:0 22px 55px -20px rgba(255,184,77,.7)}
   @keyframes cardIn{from{opacity:0;transform:scale(.8) translateY(14px)}to{opacity:1;transform:none}}
-  .ribbon-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);
-    background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;font-family:"Itim",cursive;
-    font-size:.95rem;padding:5px 18px;border-radius:99px;box-shadow:0 8px 16px -6px rgba(232,90,138,.7);white-space:nowrap;z-index:3}
+  .ribbon-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--pink),var(--pink-deep));color:#fff;
+    font-family:"Itim",cursive;font-size:.95rem;padding:5px 18px;border-radius:99px;box-shadow:0 8px 16px -6px rgba(232,90,138,.7);white-space:nowrap;z-index:3}
   .card.secret .ribbon-tag{background:linear-gradient(135deg,#FFC94D,#FF9E2C)}
 
   .stage-area{position:relative;min-height:4.2em;display:flex;align-items:center;justify-content:center}
   .msg{font-size:1.2rem;line-height:1.6;padding:6px 2px}
   .flipping{animation:flip .52s ease}
   @keyframes flip{0%{transform:perspective(700px) rotateY(0)}50%{transform:perspective(700px) rotateY(90deg)}100%{transform:perspective(700px) rotateY(0)}}
-  .scratch-canvas{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);
-    border-radius:18px;touch-action:none;cursor:grab;display:none}
+  .scratch-canvas{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);border-radius:18px;touch-action:none;cursor:grab;display:none}
   .scratch-canvas.on{display:block}
 
   .actions{display:flex;gap:10px;margin-top:18px}.actions.fun{margin-top:10px}
-  .btn{flex:1;font-family:"Mali",sans-serif;font-weight:600;font-size:.98rem;border:none;cursor:pointer;
-    border-radius:15px;padding:13px 8px;transition:transform .14s ease;white-space:nowrap}
+  .btn{flex:1;font-family:"Mali",sans-serif;font-weight:600;font-size:.98rem;border:none;cursor:pointer;border-radius:15px;padding:13px 8px;transition:transform .14s ease;white-space:nowrap}
   .btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0)}
   .btn:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
   .btn.primary{color:#fff;background:linear-gradient(135deg,var(--pink),var(--pink-deep));box-shadow:0 12px 24px -12px rgba(232,90,138,.9)}
   .btn.soft{color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8}
   .btn.fun{font-size:.9rem;color:var(--pink-deep);background:#fff;border:2px solid #FFDCE8;padding:11px 6px}
 
-  .mini-heart{margin:15px auto 2px;display:block;background:none;border:none;cursor:pointer;
-    font-size:1.5rem;animation:beat 1.4s ease-in-out infinite;line-height:1;
+  .mini-heart{margin:15px auto 2px;display:block;background:none;border:none;cursor:pointer;font-size:1.5rem;animation:beat 1.4s ease-in-out infinite;line-height:1;
     touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
   .mini-heart.holding{animation:none;transform:scale(1.8);transition:transform 1.05s linear;filter:drop-shadow(0 0 12px rgba(255,140,185,.95))}
   .mini-heart:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-radius:50%}
   @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
   .hint-tiny{font-size:.72rem;color:#C9A9B7;margin-top:2px}
 
-  .overlay{position:fixed;inset:0;z-index:20;background:rgba(90,50,80,.45);backdrop-filter:blur(3px);
-    display:none;align-items:center;justify-content:center;padding:24px}
+  .overlay{position:fixed;inset:0;z-index:20;background:rgba(90,50,80,.45);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px}
   .overlay.on{display:flex;animation:fadeIn .25s ease both}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   .wheel-box{text-align:center;max-width:340px;width:100%}
   .wheel-title{font-family:"Itim",cursive;color:#fff;font-size:1.4rem;margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
   .wheel-wrap{position:relative;width:260px;height:260px;margin:0 auto 18px}
-  .pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);z-index:2;width:0;height:0;
-    border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #fff;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))}
+  .pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);z-index:2;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:24px solid #fff;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3))}
   .wheel{width:100%;height:100%;border-radius:50%;border:8px solid #fff;box-shadow:0 14px 34px -10px rgba(0,0,0,.4);
     background:conic-gradient(var(--pink) 0 45deg,var(--violet) 45deg 90deg,var(--teal) 90deg 135deg,var(--gold) 135deg 180deg,var(--pink) 180deg 225deg,var(--violet) 225deg 270deg,var(--teal) 270deg 315deg,var(--gold) 315deg 360deg);
     transition:transform 3.4s cubic-bezier(.15,.9,.25,1)}
-  .wheel-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;
-    background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+  .wheel-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
   .legend{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:center;color:#fff;font-size:.8rem;margin-bottom:16px}
   .legend span{display:flex;align-items:center;gap:5px}.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
   .wheel-actions{display:flex;gap:10px}
-
-  /* log */
-  .log-box{background:var(--cream);border-radius:24px;max-width:380px;width:100%;max-height:78vh;
-    display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px -20px rgba(90,50,80,.6)}
-  .log-head{padding:16px 20px 12px;font-family:"Itim",cursive;color:var(--pink-deep);font-size:1.3rem;
-    border-bottom:1px solid #FFE1EC;display:flex;justify-content:space-between;align-items:center}
-  .log-head small{font-family:"Mali",sans-serif;font-size:.75rem;color:var(--ink-soft)}
-  .log-list{overflow-y:auto;padding:12px 14px;flex:1}
-  .log-item{background:#fff;border:1px solid #FFE1EC;border-radius:14px;padding:10px 12px;margin-bottom:8px;text-align:left}
-  .log-item .meta{font-size:.7rem;color:var(--ink-soft);margin-bottom:3px}
-  .log-item .txt{font-size:.92rem;line-height:1.5;color:var(--ink)}
-  .log-empty{color:var(--ink-soft);text-align:center;padding:30px 10px}
-  .log-foot{padding:12px 14px;display:flex;gap:10px;border-top:1px solid #FFE1EC}
 
   .burst{position:fixed;pointer-events:none;z-index:15}
   .burst span{position:absolute;animation:burst .95s ease-out forwards}
@@ -143,8 +120,7 @@
 </head>
 <body>
 <div class="bg-hearts" id="bgHearts"></div>
-<button class="corner-btn" id="histBtn" aria-label="ประวัติข้อความ">📜</button>
-<button class="corner-btn" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
+<button class="mute" id="mute" aria-label="เปิด/ปิดเสียง">🔊</button>
 
 <div class="stage">
   <div class="title" id="title">กล่องสุ่มคำหวาน 💌</div>
@@ -152,6 +128,7 @@
   <div class="name-row">
     <input id="name" type="text" maxlength="20" value="กิ๊บ" placeholder="ใส่ชื่อเขา (ไม่ใส่ก็ได้)" aria-label="ชื่อเขา">
   </div>
+  <a class="page-link" href="game.html">🎮 ไปเล่นเกมรัก →</a>
 
   <div class="box-wrap" id="boxWrap">
     <div class="gift" id="gift" role="button" tabindex="0" aria-label="เปิดกล่อง">
@@ -200,7 +177,6 @@
   </div>
 </div>
 
-<!-- wheel overlay -->
 <div class="overlay" id="overlay">
   <div class="wheel-box">
     <div class="wheel-title">🎡 หมุนวงล้อเสี่ยงทาย~</div>
@@ -216,18 +192,6 @@
     <div class="wheel-actions">
       <button class="btn primary" id="doSpin">หมุน! 🎯</button>
       <button class="btn soft" id="closeWheel">ปิด</button>
-    </div>
-  </div>
-</div>
-
-<!-- log overlay -->
-<div class="overlay" id="logOverlay">
-  <div class="log-box">
-    <div class="log-head"><span>📜 ประวัติข้อความ</span><small id="logCount"></small></div>
-    <div class="log-list" id="logList"></div>
-    <div class="log-foot">
-      <button class="btn soft" id="clearLog">ล้างประวัติ</button>
-      <button class="btn primary" id="closeLog">ปิด</button>
     </div>
   </div>
 </div>
@@ -287,7 +251,6 @@ const SECRET = [
   "🔓 ความลับสุดท้าย: กล่องนี้เราตั้งใจทำเพื่อ{n}คนเดียวเลยนะ 🥹💗",
 ];
 const WHEEL_CATS=['sweet','fortune','question','coupon','sweet','fortune','question','coupon'];
-const CAT_EMOJI={sweet:'💗',fortune:'🔮',question:'💬',coupon:'🎟️',secret:'🔓'};
 
 let curCat='sweet';
 const lastIdx={sweet:-1,fortune:-1,question:-1,coupon:-1,secret:-1};
@@ -303,26 +266,6 @@ const nm=()=> nameInput.value.trim() || 'เธอ';
 const apply=t=> t.replace(/\{n\}/g, nm());
 function pickFrom(cat,pool){ let i; do{ i=Math.floor(Math.random()*pool.length); }while(i===lastIdx[cat]&&pool.length>1); lastIdx[cat]=i; return pool[i]; }
 
-/* ---- log ---- */
-let logArr=[];
-try{ logArr=JSON.parse(localStorage.getItem('lovebox_log')||'[]'); if(!Array.isArray(logArr)) logArr=[]; }catch(e){ logArr=[]; }
-function saveLog(){ try{ localStorage.setItem('lovebox_log', JSON.stringify(logArr.slice(-120))); }catch(e){} }
-function logEntry(text,cat){ logArr.push({t:text,c:cat,ts:Date.now()}); if(logArr.length>120) logArr=logArr.slice(-120); saveLog(); }
-function fmtTime(ts){ try{ return new Date(ts).toLocaleString('th-TH',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } }
-function openLog(){
-  const list=$('logList'); $('logCount').textContent = logArr.length? (logArr.length+' ข้อความ') : '';
-  if(!logArr.length){ list.innerHTML='<div class="log-empty">ยังไม่มีประวัติเลย~<br>เปิดกล่องสุ่มดูสิ 🎁</div>'; }
-  else{ list.innerHTML = logArr.slice().reverse().map(e=>
-    `<div class="log-item"><div class="meta">${CAT_EMOJI[e.c]||'💗'} · ${fmtTime(e.ts)}</div><div class="txt">${escapeHtml(e.t)}</div></div>`).join(''); }
-  $('logOverlay').classList.add('on');
-}
-function escapeHtml(s){ return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-$('histBtn').addEventListener('click',openLog);
-$('closeLog').addEventListener('click',()=>$('logOverlay').classList.remove('on'));
-$('logOverlay').addEventListener('click',e=>{ if(e.target===$('logOverlay')) $('logOverlay').classList.remove('on'); });
-$('clearLog').addEventListener('click',()=>{ logArr=[]; saveLog(); openLog(); });
-
-/* ---- sound ---- */
 function ensureAudio(){ if(!audioCtx){ try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return audioCtx; }
 function tone(freqs,dur=0.25,gap=0.08){ if(muted) return; const ctx=ensureAudio(); if(!ctx) return; const now=ctx.currentTime;
   freqs.forEach((f,i)=>{ const o=ctx.createOscillator(),g=ctx.createGain(); o.type='sine'; o.frequency.value=f; o.connect(g); g.connect(ctx.destination);
@@ -332,7 +275,6 @@ const chimeBlip=()=>tone([1046.5],0.14);
 const chimeMagic=()=>tone([659.25,783.99,987.77,1318.5],0.3,0.09);
 const chimeTick=()=>tone([1568],0.05,0);
 
-/* ---- particles ---- */
 function hearts(count,full){ const wrap=document.createElement('div'); wrap.className='burst'; let ox,oy,maxD;
   if(full){ ox=innerWidth/2; oy=innerHeight/2; maxD=Math.min(innerWidth,innerHeight)*0.62; }
   else{ const r=card.getBoundingClientRect(); ox=r.left+r.width/2; oy=r.top+r.height/2; maxD=170; }
@@ -343,11 +285,9 @@ function hearts(count,full){ const wrap=document.createElement('div'); wrap.clas
     s.style.setProperty('--r',(Math.random()*90-45)+'deg'); s.style.fontSize=(18+Math.random()*(full?22:16))+'px'; wrap.appendChild(s); }
   document.body.appendChild(wrap); setTimeout(()=>wrap.remove(),1000); }
 
-/* ---- reveal ---- */
 function setContent(text,tag,secret){ msgEl.textContent=text; tagEl.textContent=tag; card.classList.toggle('secret',!!secret); }
 function reveal(first,opts){ opts=opts||{}; hideScratch();
   const d=DATA[curCat]; const text=apply(pickFrom(curCat,d.items)); const tag=d.tag[Math.floor(Math.random()*d.tag.length)];
-  logEntry(text,curCat);
   if(first){ setContent(text,tag,false); panel.classList.add('show');
     titleEl.textContent='เปิดได้แล้ว~ 💖'; subEl.textContent='เลือกหมวด · สุ่ม · หมุนวงล้อ · ขูดการ์ด · หรือเขย่ามือถือก็ได้นะ';
     hearts(opts.big?42:18,opts.big); chimeOpen(); return; }
@@ -364,7 +304,6 @@ $('again').addEventListener('click',()=>reveal(false));
 $('copy').addEventListener('click',e=>{ navigator.clipboard?.writeText(msgEl.textContent).then(()=>{ const b=e.target,t=b.textContent; b.textContent='คัดลอกแล้ว ✓'; setTimeout(()=>b.textContent=t,1600); }).catch(()=>e.target.textContent='คัดลอกไม่ได้ 🥲'); });
 $('mute').addEventListener('click',e=>{ muted=!muted; e.currentTarget.textContent=muted?'🔇':'🔊'; if(!muted) chimeBlip(); });
 
-/* ---- easter egg: press & hold ---- */
 const miniHeart=$('miniHeart'); let holdTimer=null, held=false;
 function heartPop(){ const r=miniHeart.getBoundingClientRect(); const s=document.createElement('div'); s.className='rise'; s.textContent='💗';
   s.style.left=(r.left+r.width/2-10)+'px'; s.style.top=(r.top-6)+'px'; document.body.appendChild(s); setTimeout(()=>s.remove(),800); chimeBlip(); }
@@ -377,12 +316,11 @@ miniHeart.addEventListener('pointerleave',endHold);
 miniHeart.addEventListener('pointercancel',endHold);
 miniHeart.addEventListener('contextmenu',e=>e.preventDefault());
 miniHeart.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); triggerSecret(); }});
-function triggerSecret(){ hideScratch(); const text=apply(pickFrom('secret',SECRET)); logEntry(text,'secret');
+function triggerSecret(){ hideScratch(); const text=apply(pickFrom('secret',SECRET));
   setContent(text,'🔓 ข้อความลับ',true); miniHeart.textContent='❤️';
   stageArea.classList.remove('flipping'); void stageArea.offsetWidth; stageArea.classList.add('flipping');
   hearts(46,true); chimeMagic(); setTimeout(()=>miniHeart.textContent='🤍',2600); }
 
-/* ---- wheel ---- */
 const overlay=$('overlay'), wheel=$('wheel'); let wheelRot=0, spinning=false;
 $('spinBtn').addEventListener('click',()=>overlay.classList.add('on'));
 $('closeWheel').addEventListener('click',()=>overlay.classList.remove('on'));
@@ -393,11 +331,10 @@ $('doSpin').addEventListener('click',()=>{ if(spinning) return; spinning=true;
   let ticks=0; const tk=setInterval(()=>{ chimeTick(); if(++ticks>14) clearInterval(tk); },160);
   setTimeout(()=>{ clearInterval(tk); spinning=false; overlay.classList.remove('on'); setCat(WHEEL_CATS[seg]); reveal(false,{big:true}); },3450); });
 
-/* ---- scratch ---- */
 const canvas=$('scratch'); const ctx=canvas.getContext('2d'); let scratching=false, scratchOn=false, moveCount=0;
 $('scratchBtn').addEventListener('click',startScratch);
 function startScratch(){ hideScratch();
-  const d=DATA[curCat]; const text=apply(pickFrom(curCat,d.items)); logEntry(text,curCat);
+  const d=DATA[curCat]; const text=apply(pickFrom(curCat,d.items));
   setContent(text, d.tag[Math.floor(Math.random()*d.tag.length)], false);
   const w=stageArea.clientWidth+12, h=stageArea.clientHeight+12; const dpr=window.devicePixelRatio||1;
   canvas.width=w*dpr; canvas.height=h*dpr; canvas.style.width=w+'px'; canvas.style.height=h+'px'; ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -418,7 +355,6 @@ canvas.addEventListener('pointermove',e=>{ if(scratching) scratchAt(e); });
 canvas.addEventListener('pointerup',()=>scratching=false);
 canvas.addEventListener('pointerleave',()=>scratching=false);
 
-/* ---- shake ---- */
 const shakeBtn=$('shakeBtn'); let shakeOn=false, lastShake=0;
 function onMotion(e){ const a=e.accelerationIncludingGravity||e.acceleration; if(!a) return;
   const mag=Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0); const now=Date.now();
@@ -428,7 +364,6 @@ shakeBtn.addEventListener('click',()=>{ if(shakeOn) return;
     DeviceMotionEvent.requestPermission().then(s=>{ if(s==='granted'){ window.addEventListener('devicemotion',onMotion); shakeOn=true; shakeBtn.textContent='📳 เขย่าได้แล้ว'; } }).catch(()=>{ shakeBtn.textContent='📳 ใช้ไม่ได้'; });
   } else { window.addEventListener('devicemotion',onMotion); shakeOn=true; shakeBtn.textContent='📳 เขย่าได้แล้ว'; } });
 
-/* background hearts */
 (function(){ const wrap=$('bgHearts'),h=['💗','💕','🎀','✨','🩷']; for(let i=0;i<14;i++){ const s=document.createElement('span'); s.textContent=h[i%h.length];
   s.style.left=Math.random()*100+'%'; s.style.fontSize=(14+Math.random()*16)+'px'; s.style.animationDuration=(9+Math.random()*8)+'s'; s.style.animationDelay=(Math.random()*8)+'s'; wrap.appendChild(s); } })();
 </script>
